@@ -67,7 +67,7 @@ public final class NumberOfLinesToWriteString {
     public static void main(String[] args) {
         int[] widths = {10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10};
         String S = "abcdefghijklmnopqrstuvwxyz";
-        
+
         int[] res = numberOfLines(widths, S);
         System.out.println(res);
     }
