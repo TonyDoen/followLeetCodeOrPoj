@@ -4,6 +4,9 @@ public final class DeleteNodeInBST {
     private DeleteNodeInBST() {}
 
     /**
+     url: http://www.cnblogs.com/grandyang/p/6228252.html
+     url: https://leetcode.com/problems/delete-node-in-a-bst/discuss/93296/recursive-easy-to-understand-java-solution
+
      Given a root node reference of a BST and a key, delete the node with the given key in the BST. Return the root node reference (possibly updated) of the BST.
      Basically, the deletion can be divided into two stages:
      Search for a node to remove.
