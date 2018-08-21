@@ -30,55 +30,48 @@ public final class FindEventualSafeStates {
      分析到这里，思路应该比较明朗了，由于我们需要回推边，所以需要建立逆向边，用一个集合数组来存，由于题目要求返回的结点有序，我们可以利用集合TreeSet的自动排序的特性，由于需要断开边，为了不修改输入数据，所以我们干脆再建一个顺向边得了，即跟输入数据相同。还需要一个safe数组，布尔型的，来标记哪些结点是安全状态结点。在遍历结点的时候，直接先将出度为0的安全状态结点找出来，排入一个队列queue中，方便后续的处理。后续的处理就有些类似BFS的操作了，我们循环非空queue，取出队首元素，标记safe中该结点为安全状态结点，然后遍历其逆向边的结点，即可以到达当前队首结点的所有结点，我们在正向边集合中删除对应的边，如果此时结点出度为0了，将其加入队列queue中等待下一步处理，这样while循环退出后，所有的安全状态结点都已经标记好了，我们直接遍历safe数组，将其存入结果res中即可
      */
 
-    static List<Integer> eventualSafeNodes(int[][] graph) {
-        int n = graph.length;
-        boolean[] safe = new boolean[n];
-        List<Integer> res = new ArrayList<Integer>(n);
-        Map<Integer, TreeSet<Integer>> g = new HashMap<Integer, TreeSet<Integer>>(), revG = g;
-        Queue<Integer> q = new LinkedList<Integer>();
-        for (int i = 0; i < n; ++i) {
-            if (0 == graph[i].length) q.add(i);
-            for (int j : graph[i]) {
+    static List<Integer> eventualSafeNodes2(int[][] G) {
+        int N = G.length;
+        boolean[] safe = new boolean[N];
 
-                TreeSet<Integer> gi = g.get(i);
-                if (null == gi) {
-                    gi = new TreeSet<Integer>();
-                    g.put(i, gi);
-                }
-                gi.add(j);
-//                g.get(i).add(j);
-                TreeSet<Integer> revGj = revG.get(j);
-                if (null == revGj) {
-                    revGj = new TreeSet<Integer>();
-                    revG.put(j, revGj);
-                }
-                revGj.add(i);
-//                revG.get(j).add(i);
+        List<Set<Integer>> graph = new ArrayList<Set<Integer>>();
+        List<Set<Integer>> rGraph = new ArrayList<Set<Integer>>();
+        for (int i = 0; i < N; ++i) {
+            graph.add(new HashSet<Integer>());
+            rGraph.add(new HashSet<Integer>());
+        }
+
+        Queue<Integer> queue = new LinkedList<Integer>();
+
+        for (int i = 0; i < N; ++i) {
+            if (G[i].length == 0)
+                queue.offer(i);
+            for (int j: G[i]) {
+                graph.get(i).add(j);
+                rGraph.get(j).add(i);
             }
         }
-        while (!q.isEmpty()) {
-            Integer t = q.poll();
-            safe[t] = true;
-            TreeSet<Integer> set = revG.get(t);
-            if (null == set) {
-                continue;
-            }
-            for (Integer i : set) {
-                TreeSet<Integer> gi = g.get(i);
-                gi.remove(t);
-                if (gi.isEmpty()) q.add(i);
+
+        while (!queue.isEmpty()) {
+            int j = queue.poll();
+            safe[j] = true;
+            for (int i: rGraph.get(j)) {
+                graph.get(i).remove(j);
+                if (graph.get(i).isEmpty())
+                    queue.offer(i);
             }
         }
-        for (int i = 0; i < n; ++i) {
-            if (safe[i]) res.add(i);
-        }
-        return res;
+
+        List<Integer> ans = new ArrayList<Integer>();
+        for (int i = 0; i < N; ++i) if (safe[i])
+            ans.add(i);
+
+        return ans;
     }
-
     public static void main(String[] args) {
         //                0     1     2   3   4  5  6
         int[][] graph = {{1,2},{2,3},{5},{0},{5},{},{}};
-        List<Integer> res = eventualSafeNodes(graph);
-        System.out.println(res);
+        List<Integer> res2 = eventualSafeNodes2(graph);
+        System.out.println(res2);
     }
 }
