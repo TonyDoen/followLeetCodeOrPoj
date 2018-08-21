@@ -104,7 +104,6 @@ public final class SplitBST {
         Integer data;
         TreeNode left;
         TreeNode right;
-        TreeNode() {}
         TreeNode(Integer data) {
             this(data, null, null);
         }
