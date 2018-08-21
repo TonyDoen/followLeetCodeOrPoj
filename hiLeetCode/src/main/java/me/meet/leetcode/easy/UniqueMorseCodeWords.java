@@ -6,6 +6,9 @@ public final class UniqueMorseCodeWords {
     private UniqueMorseCodeWords() {}
 
     /**
+     url: https://leetcode.com/problems/unique-morse-code-words/solution/
+     url: http://www.cnblogs.com/grandyang/p/9338988.html
+
      International Morse Code defines a standard encoding where each letter is mapped to a series of dots and dashes, as follows: "a" maps to ".-", "b" maps to "-...", "c" maps to "-.-.", and so on.
      For convenience, the full table for the 26 letters of the English alphabet is given below:
        a    b      c      d     e   f      g     h      i    j      k     l      m    n    o     p      q      r     s     t   u     v      w     x      y      z
