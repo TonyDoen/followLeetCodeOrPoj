@@ -67,7 +67,7 @@ public final class DesignTicTacToe {
         private int[] rows;
         private int[] cols;
         private int N;
-        private int diagonal;
+        private int diagonal;    // 对角线
         private int revDiagonal;
 
         enum Player {
