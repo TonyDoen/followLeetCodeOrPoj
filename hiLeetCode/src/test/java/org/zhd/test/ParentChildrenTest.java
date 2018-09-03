@@ -4,19 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ParentChildrenTest {
+    private ParentChildrenTest() {}
+
     static class Parent {
 
         private static Integer privateStaticInt;
+
         static {
             privateStaticInt = 1;
             System.out.println("Parent static{} 1");
         }
+
         static {
             System.out.println("Parent static{} 2");
         }
 
         private Integer privateInt;
         protected Integer protectedInt;
+
         public Parent() {
             System.out.println("Parent()");
         }
@@ -26,17 +31,20 @@ public final class ParentChildrenTest {
     static class Children extends Parent {
 
         private static Integer privateStaticInt;
+
         static {
             privateStaticInt = 1;
             System.out.println("Children static{} 1");
         }
+
         static {
             System.out.println("Children static{} 2");
         }
 
-        public Children () {
+        public Children() {
             System.out.println("Children()");
         }
+
         public Children(Integer privateInt, Integer protectedInt) {
 //            super();
             super.privateInt = privateInt;
@@ -46,19 +54,20 @@ public final class ParentChildrenTest {
 
     }
 
-    public static class Singleton{
-        private Singleton(){
+    public static class Singleton {
+        private Singleton() {
             System.out.println("Singleton()");
         }
 
-        private static class Inner{
-            private Inner(){
+        private static class Inner {
+            private Inner() {
                 System.out.println("Singleton.Inner()");
             }
+
             private static Singleton INSTANCE = new Singleton();
         }
 
-        public static Singleton getInstance(){
+        public static Singleton getInstance() {
             return Inner.INSTANCE;
         }
     }
@@ -77,7 +86,7 @@ public final class ParentChildrenTest {
 
     private static void testClassLoadSeq() {
         // 类加载顺序问题
-        ParentChildrenTest.Children children2 = new ParentChildrenTest.Children(1,2);
+        ParentChildrenTest.Children children2 = new ParentChildrenTest.Children(1, 2);
         ParentChildrenTest.Children children1 = new ParentChildrenTest.Children();
     }
 
@@ -107,6 +116,7 @@ public final class ParentChildrenTest {
         }
         System.out.println(list);
     }
+
     private static void setObjRef(ObjRef one, int i) {
         if (null == one) {
             return;

@@ -15,6 +15,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public final class MultiThreadTest {
+    private MultiThreadTest() {}
 
     static class Reenter1 implements Runnable {
         private final static int SIZE = 10000;
@@ -220,7 +221,7 @@ public final class MultiThreadTest {
 
         private int i = 0;
 
-        private int read (Lock lock) {
+        private int read(Lock lock) {
             try {
                 lock.lock();
                 Thread.sleep(1000);
@@ -234,7 +235,7 @@ public final class MultiThreadTest {
             return 0;
         }
 
-        private void write (Lock lock, int i) {
+        private void write(Lock lock, int i) {
             try {
                 lock.lock();
                 Thread.sleep(1000);
@@ -254,7 +255,7 @@ public final class MultiThreadTest {
 
         public void run() {
             try {
-                Thread.sleep(new Random().nextInt(10)*1000); //
+                Thread.sleep(new Random().nextInt(10) * 1000); //
                 System.out.println(Thread.currentThread().getName() + " check complete. ");
                 LATCH.countDown();
             } catch (InterruptedException e) {
@@ -278,7 +279,7 @@ public final class MultiThreadTest {
                 try {
                     barrier.await(); // 等待所有士兵到齐
 
-                    Thread.sleep(Math.abs(new Random().nextInt()%10000)); // 士兵开始任务
+                    Thread.sleep(Math.abs(new Random().nextInt() % 10000)); // 士兵开始任务
                     System.out.println(Thread.currentThread().getName() + " get job done. ");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -316,8 +317,8 @@ public final class MultiThreadTest {
         System.out.println("General: [Soldier] team up ");
 
         for (int i = 0; i < NUM; i++) {
-            String name = "soldier-"+i;
-            System.out.println("Soldier [" + name +"] here. ");
+            String name = "soldier-" + i;
+            System.out.println("Soldier [" + name + "] here. ");
             all[i] = new Thread(new Reenter0.Soldier(name, barrier), name);
             all[i].start();
         }
