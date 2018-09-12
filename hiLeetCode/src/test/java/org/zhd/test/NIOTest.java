@@ -21,8 +21,8 @@ public final class NIOTest {
     }
 
     private static void simpleIOSample1() {
-        String fileInputPath = "/Users/didi/a";
-        String fileOutputPath = "/Users/didi/b";
+        String fileInputPath = "/Users/tony/a";
+        String fileOutputPath = "/Users/tony/b";
         FileInputStream fis = null;
         FileOutputStream fos = null;
         try {
@@ -57,8 +57,8 @@ public final class NIOTest {
 
     // 字节流转换成字符流
     private static void simpleIOSample2() {
-        String fileInputPath = "/Users/didi/a";
-        String fileOutputPath = "/Users/didi/b";
+        String fileInputPath = "/Users/tony/a";
+        String fileOutputPath = "/Users/tony/b";
         BufferedReader br = null;
         BufferedWriter bw = null;
         try {
@@ -94,8 +94,8 @@ public final class NIOTest {
 
     // 读取大文件
     private static void simpleIOSample3() throws IOException {
-        String fileInputPath = "/Users/didi/a";
-        String fileOutputPath = "/Users/didi/b";
+        String fileInputPath = "/Users/tony/a";
+        String fileOutputPath = "/Users/tony/b";
         BufferedReader reader = new BufferedReader(new InputStreamReader(new BufferedInputStream(new FileInputStream(fileInputPath)), "utf-8"), 10 * 1024 * 1024); // 用10M的缓冲读取文本文件
         String line = "";
         while ((line = reader.readLine()) != null) {
@@ -105,8 +105,8 @@ public final class NIOTest {
 
     // 读取大文件 better
     private static void simpleIOSample4() throws IOException {
-        String fileInputPath = "/Users/didi/a";
-        String fileOutputPath = "/Users/didi/b";
+        String fileInputPath = "/Users/tony/a";
+        String fileOutputPath = "/Users/tony/b";
         FileChannel read = new FileInputStream(fileInputPath).getChannel();
         FileChannel writer = new RandomAccessFile(fileOutputPath, "rw").getChannel();
         long i = 0;
