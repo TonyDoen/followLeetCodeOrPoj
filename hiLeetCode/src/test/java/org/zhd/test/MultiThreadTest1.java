@@ -1,5 +1,6 @@
 package org.zhd.test;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.locks.LockSupport;
 
 public final class MultiThreadTest1 {
