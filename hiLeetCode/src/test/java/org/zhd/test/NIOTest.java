@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -160,8 +159,8 @@ public final class NIOTest {
         long start = System.currentTimeMillis();
 //        simpleIOSample1();
 //        simpleIOSample2();
-        simpleIOSample4();
-//        simpleIOSample5();
+//        simpleIOSample4();
+        simpleIOSample5();
         System.out.println(System.currentTimeMillis()-start);
     }
 
