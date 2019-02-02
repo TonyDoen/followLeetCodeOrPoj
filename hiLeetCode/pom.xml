@@ -22,5 +22,20 @@
             <version>3.4.2</version>
         </dependency>
 
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.reflections/reflections &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>org.reflections</groupId>-->
+            <!--<artifactId>reflections</artifactId>-->
+            <!--<version>0.9.11</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/commons-configuration/commons-configuration &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>commons-configuration</groupId>-->
+            <!--<artifactId>commons-configuration</artifactId>-->
+            <!--<version>1.10</version>-->
+        <!--</dependency>-->
+
+
     </dependencies>
 </project>
