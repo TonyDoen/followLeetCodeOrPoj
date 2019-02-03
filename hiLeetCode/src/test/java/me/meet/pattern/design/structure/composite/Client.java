@@ -2,6 +2,30 @@ package me.meet.pattern.design.structure.composite;
 
 public class Client {
     /**
+     * 组合模式类图                     _________________________________
+     *                                |          Organization          |
+     *                                |--------------------------------|
+     *  ___________________           |+inform(info: String)           |
+     * |       Client      |          |+addOrg(org: Organization)      |
+     * |-------------------|          |+removeOrg(org: Organization)   |
+     * |                   |--------->|+getAllOrg(): List<Organization>|<---------------------|
+     * |-------------------|          |________________________________|                      |
+     * |                   |                       /\                                         |
+     * |___________________|              _________|_________                                 |
+     *                                   |                   |                                |
+     *             ______________________|_________     _____|__________________________      |
+     *            |       Department               |   |       Company                  |     |
+     *            |--------------------------------|   |--------------------------------|     |
+     *            |-name: String                   |   |-name: String                   |     |
+     *            |________________________________|   |________________________________|<>----
+     *            |+inform(info: String)           |   |+inform(info: String)           |
+     *            |+addOrg(org: Organization)      |   |+addOrg(org: Organization)      |
+     *            |+removeOrg(org: Organization)   |   |+removeOrg(org: Organization)   |
+     *            |+getAllOrg(): List<Organization>|   |+getAllOrg(): List<Organization>|
+     *            |________________________________|   |________________________________|
+     *
+     *
+     *
      * 组合模式（Composite Pattern）将对象组合成树形结构以表示“部分-整体”的层次结构。组合模式使得用户可以使用一致的方法操作单个对象和组合对象。
      *
      * 组合模式角色划分

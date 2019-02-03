@@ -24,7 +24,7 @@ public abstract class Organization {
         childOrg.remove(org);
     }
 
-    public List<Organization> getAllOrgs() {
+    public List<Organization> getAllOrg() {
         return childOrg;
     }
 

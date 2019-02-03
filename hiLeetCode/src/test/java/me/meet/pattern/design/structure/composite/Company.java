@@ -14,7 +14,7 @@ public class Company extends Organization {
 
     public void inform(String info) {
         LOG.info("" + info + getName());
-        List<Organization> allOrgs = getAllOrgs();
-        allOrgs.forEach(org -> org.inform(info + "-"));
+        List<Organization> allOrg = getAllOrg();
+        allOrg.forEach(org -> org.inform(info + "-"));
     }
 }
