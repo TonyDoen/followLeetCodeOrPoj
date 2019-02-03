@@ -107,12 +107,4 @@ public class SimpleFactoryContext {
         strategy.strategy(input);
     }
 
-    /**
-     * SimpleContextClient
-     * 简单的策略模式的应用
-     */
-    public static void main(String[] args) {
-        SimpleFactoryContext context = new SimpleFactoryContext();
-        context.action("Hello, world");
-    }
 }

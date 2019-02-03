@@ -30,7 +30,7 @@ public class Client {
    * 单一职责原则
    * 开闭原则
    *
-   * 
+   *
    */
   public static void main(String[] args) {
 

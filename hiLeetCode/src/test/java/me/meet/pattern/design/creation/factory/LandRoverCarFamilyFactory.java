@@ -34,17 +34,16 @@ public class LandRoverCarFamilyFactory implements CarFamilyFactory {
      *
      **/
 
-
-    public static void main(String[] args) {
-        CarFamilyFactory carFamilyFactory = new LandRoverCarFamilyFactory();
-        Car suv = carFamilyFactory.newSUVCar();
-        Car bus = carFamilyFactory.newBusCar();
-        Car mini = carFamilyFactory.newMiniCar();
-
-        suv.drive();
-        bus.drive();
-        mini.drive();
-    }
+    //    public static void main(String[] args) {
+    //        CarFamilyFactory carFamilyFactory = new LandRoverCarFamilyFactory();
+    //        Car suv = carFamilyFactory.newSUVCar();
+    //        Car bus = carFamilyFactory.newBusCar();
+    //        Car mini = carFamilyFactory.newMiniCar();
+    //
+    //        suv.drive();
+    //        bus.drive();
+    //        mini.drive();
+    //    }
 
     public Car newSUVCar() {
         return new LandRoverSUVCar();

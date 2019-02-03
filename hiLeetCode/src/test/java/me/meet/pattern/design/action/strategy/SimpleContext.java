@@ -15,13 +15,4 @@ public class SimpleContext {
         strategy.strategy(input);
     }
 
-    /**
-     * SimpleContextClient
-     * 简单的策略模式的应用
-     */
-    public static void main(String[] args) {
-        Strategy strategy = new ConcreteStrategyA();
-        SimpleContext context = new SimpleContext(strategy);
-        context.action("Hello, world");
-    }
 }

@@ -50,12 +50,11 @@ public class BMWCarFactory implements CarFactory {
      *
      **/
 
-
-    public static void main(String[] args) {
-        CarFactory carFactory = new BMWCarFactory();
-        Car car = carFactory.newCar();
-        car.drive();
-    }
+    //    public static void main(String[] args) {
+    //        CarFactory carFactory = new BMWCarFactory();
+    //        Car car = carFactory.newCar();
+    //        car.drive();
+    //    }
 
     public Car newCar() {
         return new BMWCar();

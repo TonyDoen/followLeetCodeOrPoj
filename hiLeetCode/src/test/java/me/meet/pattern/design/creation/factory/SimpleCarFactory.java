@@ -81,8 +81,8 @@ public class SimpleCarFactory {
         }
     }
 
-    public static void main(String[] args) {
-        Car car = SimpleCarFactory.newCar();
-        car.drive();
-    }
+    //    public static void main(String[] args) {
+    //        Car car = SimpleCarFactory.newCar();
+    //        car.drive();
+    //    }
 }
