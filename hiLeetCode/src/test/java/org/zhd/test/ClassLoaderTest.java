@@ -15,6 +15,8 @@ public class ClassLoaderTest {
             //trying to explicitly load this class again using Extension class loader
             Class.forName("org.zhd.test.ClassLoaderTest", true
                     , ClassLoaderTest.class.getClassLoader().getParent());
+            Class clazz = int.class;
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ClassLoaderTest.class.getName()).log(Level.SEVERE, null, ex);
 //            System.out.println(ClassLoaderTest.class.getName());

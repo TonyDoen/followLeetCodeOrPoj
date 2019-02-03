@@ -25,7 +25,7 @@ public class LandRoverCarFamilyFactory implements CarFamilyFactory {
      * 抽象产品（或者产品接口），如 Car
      * 具体产品，              如 LandRoverBusCar, LandRoverMiniCar, LandRoverSUVCar
      * 产品族，                如 LandRoverBusCar, LandRoverMiniCar, LandRoverSUVCar
-     * 
+     *
      * 抽象工厂（或者工厂接口），如 CarFamilyFactory
      * 具体工厂，              如 LandRoverCarFamilyFactory
      *
