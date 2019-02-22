@@ -1,6 +1,5 @@
 package org.zhd.test;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.locks.LockSupport;
 
 public final class MultiThreadTest1 {
@@ -46,6 +45,7 @@ public final class MultiThreadTest1 {
     public static void main(String[] args) {
         testLockSupportOuch();
         System.out.println("end.");
+//        ThreadLocal
     }
 
     /**
