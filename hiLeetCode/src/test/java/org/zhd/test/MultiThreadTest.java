@@ -452,7 +452,7 @@ public final class MultiThreadTest {
 
     public static void main(String[] args) {
 //        testReenter1();
-//        testReenter2();
+        testReenter2();
 //        testReenter3();
 //        testReenter4();
 //        testReenter5();

@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 
 
 public class ClassLoaderTest {
+    class MyClassLoader extends ClassLoader {
+
+    }
 
     public static void main(String args[]) {
         try {
