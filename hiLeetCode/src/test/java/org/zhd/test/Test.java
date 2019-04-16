@@ -99,8 +99,7 @@ public class Test {
         return res;
     }
 
-
-    public static void main(String[] args) {
+    private static void check() {
         String[] str = new String[]{
                 "1,28,300.6,San Francisco",
                 "4,5,209.1,San Francisco",
@@ -123,4 +122,15 @@ public class Test {
 
         System.out.println(list);
     }
+
+
+    public static void main(String[] args) {
+        check();
+
+        System.out.println(0^1);
+        System.out.println(1^1);
+        System.out.println(2^1);
+        System.out.println(3^1);
+    }
+
 }
