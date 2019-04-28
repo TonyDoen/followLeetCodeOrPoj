@@ -70,7 +70,33 @@ public class LongestMountainInArray {
      * 还是一次遍历就行，进行while循环，条件是 i < n-1，然后判断，当前数字大于等于下一个数字则跳过，因为我们希望首先上坡，当找到递增的起点i后，则再开始循环，找山顶peak，找到了之后，再进行下坡，找到山脚j，这样如果i，peak，和j都不相同的话，说明找到了一个完整的山，用 j-i+1 来更新结果res即可，然后i从j开始继续遍历
      */
     static int getLongestMountainInArray3(int[] arr) {
-        return 0;
+        int res = 0, i = 0, n = arr.length;
+        while (i < n - 1) {
+            while (i < n - 1 && arr[i] >= arr[i + 1]) ++i;
+            int peak = i;
+            while (peak < n - 1 && arr[peak] < arr[peak + 1]) ++peak;
+            int j = peak;
+            while (j < n - 1 && arr[j] > arr[j + 1]) ++j;
+            if (i < peak && peak < j) res = Math.max(res, j - i + 1);
+            i = j;
+        }
+        return res;
+    }
+
+    /**
+     * 再换种思路，首先来找山峰，peak的范围是 [1, n-1]，因为首尾两个数字都不能做山峰，能做山峰的位置上的数必须大于其左右两边的数字，然后分别向左右两个方向遍历，这样就可以找到完整的山，用 right-left+1 来更新结果res
+     */
+    static int getLongestMountainInArray4(int[] arr) {
+        int res = 0, n = arr.length;
+        for (int i = 1; i < n - 1; ++i) {
+            if (arr[i - 1] < arr[i] && arr[i + 1] < arr[i]) {
+                int left = i - 1, right = i + 1;
+                while (left > 0 && arr[left - 1] < arr[left]) --left;
+                while (right < n - 1 && arr[right] > arr[right + 1]) ++right;
+                res = Math.max(res, right - left + 1);
+            }
+        }
+        return res;
     }
 
     public static void main(String[] args) {
