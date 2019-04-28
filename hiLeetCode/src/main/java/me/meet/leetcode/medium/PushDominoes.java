@@ -50,8 +50,8 @@ public class PushDominoes {
         d = 'L' + d + 'R';
         StringBuilder res = new StringBuilder();
         for (int i = 0, j = 1; j < d.length(); ++j) {
-            char cj = d.charAt(j);
             char ci = d.charAt(i);
+            char cj = d.charAt(j);
 
             if (cj == '.') continue;
             int middle = j - i - 1;
@@ -72,5 +72,6 @@ public class PushDominoes {
 
     public static void main(String[] args) {
         System.out.println(pushDominoes("R....R"));
+        System.out.println(pushDominoes(".L.R...LR..L.."));
     }
 }
