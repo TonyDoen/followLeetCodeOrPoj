@@ -2,7 +2,7 @@ package me.meet.leetcode.medium;
 
 import java.util.*;
 
-public class KeysAndRooms {
+public final class KeysAndRooms {
     private KeysAndRooms() {}
 
     /**

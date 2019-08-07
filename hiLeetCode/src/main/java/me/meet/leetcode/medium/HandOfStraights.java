@@ -3,7 +3,7 @@ package me.meet.leetcode.medium;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HandOfStraights {
+public final class HandOfStraights {
     private HandOfStraights() {
     }
     /**

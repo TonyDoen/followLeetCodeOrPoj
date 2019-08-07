@@ -1,6 +1,6 @@
 package me.meet.leetcode.easy;
 
-public class BackspaceStringCompare {
+public final class BackspaceStringCompare {
     private BackspaceStringCompare() {}
 
     /**

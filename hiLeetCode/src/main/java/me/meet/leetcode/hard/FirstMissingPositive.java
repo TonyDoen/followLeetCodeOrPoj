@@ -2,7 +2,7 @@ package me.meet.leetcode.hard;
 
 import java.util.HashSet;
 
-public class FirstMissingPositive {
+public final class FirstMissingPositive {
     private FirstMissingPositive() {}
 
     /**

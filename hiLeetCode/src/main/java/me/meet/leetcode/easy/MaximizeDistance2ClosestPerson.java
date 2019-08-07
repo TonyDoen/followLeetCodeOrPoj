@@ -1,6 +1,6 @@
 package me.meet.leetcode.easy;
 
-public class MaximizeDistance2ClosestPerson {
+public final class MaximizeDistance2ClosestPerson {
     private MaximizeDistance2ClosestPerson() {}
 
     /**

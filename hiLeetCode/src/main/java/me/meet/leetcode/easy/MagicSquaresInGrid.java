@@ -1,6 +1,6 @@
 package me.meet.leetcode.easy;
 
-public class MagicSquaresInGrid {
+public final class MagicSquaresInGrid {
     private MagicSquaresInGrid() {}
 
     /**

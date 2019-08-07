@@ -1,9 +1,12 @@
 package me.meet.leetcode.medium;
 
-public class PushDominoes {
+public final class PushDominoes {
     private PushDominoes() {}
 
     /**
+     * url: https://leetcode.com/problems/push-dominoes/submissions/
+     * url: https://leetcode.com/problems/push-dominoes/discuss/132332/C%2B%2BJavaPython-Two-Pointers
+     *
      * There are N dominoes in a line, and we place each domino vertically upright.
      * In the beginning, we simultaneously push some of the dominoes either to the left or to the right.
      *
@@ -46,7 +49,7 @@ public class PushDominoes {
      * 由于上述四种情况包含了所有的情况，所以我们的目标就是在字符串中找出中间是‘点’的小区间，为了便于我们一次遍历就处理完，我们在dominoes字符串左边加个L，右边加个R，这并不会影响骨牌倒下的情况。我们使用双指针来遍历，其中i初始化为0，j初始化为1，当j指向‘点’时，我们就跳过，目标是i指向小区间的左边界，j指向右边界，然后用 j-i-1 算出中间‘点’的个数，为0表示中间没有点。若此时 i>0，则将左边界加入结果res中。若左右边界相同，那么中间的点都填成左边界，这是上述的情况一和二；若左边界是L，右边界是R，则是上述的情况三，中间还是保持点不变；若左边界是R，右边界是L，则是情况四，那么先加 mid/2 个R，再加 mid%2 个点，最后加 mid/2 个L即可。然后i更新为j，继续循环即可
      */
     
-    static public String pushDominoes(String d) {
+    static String pushDominoes(String d) {
         d = 'L' + d + 'R';
         StringBuilder res = new StringBuilder();
         for (int i = 0, j = 1; j < d.length(); ++j) {
@@ -57,7 +60,7 @@ public class PushDominoes {
             int middle = j - i - 1;
             if (i > 0) res.append(ci);
             if (ci == cj)
-                for (int k = 0; k < middle; k++) res.append(d.charAt(i));
+                for (int k = 0; k < middle; k++) res.append(ci);
             else if (ci == 'L' && cj == 'R')
                 for (int k = 0; k < middle; k++) res.append('.');
             else {
@@ -71,7 +74,7 @@ public class PushDominoes {
     }
 
     public static void main(String[] args) {
-        System.out.println(pushDominoes("R....R"));
+//        System.out.println(pushDominoes("R....R"));
         System.out.println(pushDominoes(".L.R...LR..L.."));
     }
 }

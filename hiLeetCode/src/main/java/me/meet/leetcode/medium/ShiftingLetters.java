@@ -1,6 +1,6 @@
 package me.meet.leetcode.medium;
 
-public class ShiftingLetters {
+public final class ShiftingLetters {
     private ShiftingLetters() {}
 
     /**

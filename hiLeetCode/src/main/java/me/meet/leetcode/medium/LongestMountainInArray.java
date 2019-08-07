@@ -1,6 +1,6 @@
 package me.meet.leetcode.medium;
 
-public class LongestMountainInArray {
+public final class LongestMountainInArray {
     private LongestMountainInArray() {}
 
     /**

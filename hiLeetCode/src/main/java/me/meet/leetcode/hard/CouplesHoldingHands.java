@@ -3,7 +3,7 @@ package me.meet.leetcode.hard;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CouplesHoldingHands {
+public final class CouplesHoldingHands {
     private CouplesHoldingHands() {}
 
     /**

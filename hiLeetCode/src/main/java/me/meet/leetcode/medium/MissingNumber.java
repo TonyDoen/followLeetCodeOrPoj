@@ -1,6 +1,6 @@
 package me.meet.leetcode.medium;
 
-public class MissingNumber {
+public final class MissingNumber {
     private MissingNumber() {}
 
     /**
