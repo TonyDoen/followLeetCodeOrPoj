@@ -6,4 +6,32 @@
 .idea
 .DS_Store
 
+target/
+.buildpath
+.project
+.settings/
+META-INF/
+.externalToolBuilders/
+.classpath
+.prefs
+.metadata
+.MF
+.component
+.jsdtscope
+.container
+.name
+.launch
+.checkstyle
+.svn
+Thumbs.db
+*.iml
+gen
+out
+.gradle/
+build/
+*.log
+.git
+.iml
+.idea/
+
 
