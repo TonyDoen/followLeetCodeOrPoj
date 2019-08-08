@@ -33,7 +33,7 @@ build/
 .git
 .iml
 .idea/
-
+workflow-engine/
 
 
 # Compiled source #
