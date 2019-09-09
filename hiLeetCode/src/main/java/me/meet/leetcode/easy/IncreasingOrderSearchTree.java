@@ -1,5 +1,7 @@
 package me.meet.leetcode.easy;
 
+import java.util.LinkedList;
+
 public final class IncreasingOrderSearchTree {
     private IncreasingOrderSearchTree() {}
 
@@ -69,6 +71,24 @@ public final class IncreasingOrderSearchTree {
         return res;
     }
 
+    static Node increasingBST2(Node root) {
+        Node dummy = new Node(-1, null, null);
+        Node pre = dummy;
+        LinkedList<Node> st = new LinkedList<>();
+        while (null != root || !st.isEmpty()) {
+            while (null != root) {
+                st.addFirst(root);
+                root = root.left;
+            }
+            root = st.pop();
+            pre.right = root;
+            pre = pre.right;
+            root.left = null;
+            root = root.right;
+        }
+        return dummy.right;
+    }
+
     static Node prepareTree() {
         /**
                5
@@ -101,6 +121,10 @@ public final class IncreasingOrderSearchTree {
     public static void main(String[] args) {
         Node root = prepareTree();
         Node res = increasingBST(root);
+        inOrder(res);
+
+        root = prepareTree();
+        res = increasingBST2(root);
         inOrder(res);
     }
 
