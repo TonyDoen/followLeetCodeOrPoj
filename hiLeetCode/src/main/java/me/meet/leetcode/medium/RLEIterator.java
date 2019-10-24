@@ -75,6 +75,31 @@ public final class RLEIterator {
         }
     }
 
+    /**
+     * 思路：
+     * 其实我们根本不用将数字对儿抽离出来，直接用输入数组的形式就可以，再用一个指针 cur，指向当前数字对儿的次数即可。那么在 next 函数中，我们首先来个 while 循环，判读假如 cur 没有越界，且当n大于当前当次数了，则n减去当前次数，cur 自增2，移动到下一个数字对儿的次数上。当 while 循环结束后，判断若此时 cur 已经越界了，则返回 -1，否则当前次数减去n，并且返回当前数字即可，参见代码如下：
+     */
+    static class RLEIterator2 {
+        int cur;
+        int[] arr;
+
+        public RLEIterator2(int[] arr) {
+            this.cur = 0;
+            this.arr = arr;
+        }
+
+        public int next(int n) {
+            while (cur < arr.length && n > arr[cur]) {
+                n -= arr[cur];
+                cur += 2;
+            }
+            if (cur >= arr.length) return -1;
+            arr[cur] -= n;
+            return arr[cur + 1];
+        }
+    }
+
+
     public static void main(String[] args) {
         int[] arr = new int[]{3, 8, 0, 9, 2, 5};
         RLEIteratorOne ro = new RLEIteratorOne(arr);
@@ -82,6 +107,12 @@ public final class RLEIterator {
         int[] input = new int[]{2, 1, 1, 2};
         for (int i : input) {
             int res = ro.next(i);
+            System.out.println(res);
+        }
+
+        RLEIterator2 rr = new RLEIterator2(arr);
+        for (int i : input) {
+            int res = rr.next(i);
             System.out.println(res);
         }
     }

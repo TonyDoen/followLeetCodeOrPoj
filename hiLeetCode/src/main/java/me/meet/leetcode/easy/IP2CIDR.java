@@ -1,5 +1,8 @@
 package me.meet.leetcode.easy;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public final class IP2CIDR {
     private IP2CIDR() {}
 
@@ -45,6 +48,31 @@ public final class IP2CIDR {
      * Every implied address ip + x (for x < n) will be a valid IPv4 address.
      * n will be an integer in the range [1, 1000].
      */
+    static List<String> ip2CIDR(String ip, int n) {
+        LinkedList<String> res = new LinkedList<>();
+        long x = 0;
+        String[] nums = ip.split(".");
+        for (String num : nums) {
+            x = x * 256 + Integer.valueOf(num);
+        }
+        while (n > 0) {
+            long step = x & -x;
+            while (step > n) step /= 2;
+            res.push(convert(x, step));
+            x += step;
+            n -= step;
+        }
+        return res;
+    }
+    private static String convert(long x, long step) {
+        return ((x >> 24) & 255) + "." + ((x >> 16) & 255) + "." + ((x >> 8) & 255) + "." + (x & 255) + "/" + (32 - (int)Math.log(step));
+    }
 
-    
+    public static void main(String[] args) {
+        String ip = "255.0.0.7";
+        int n = 10;
+
+        List<String> res = ip2CIDR(ip, n);
+        System.out.println(res);
+    }
 }
