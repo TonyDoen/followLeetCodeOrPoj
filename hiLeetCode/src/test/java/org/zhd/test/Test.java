@@ -1,16 +1,8 @@
 package org.zhd.test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Test {
     class Kstr {
@@ -123,8 +115,36 @@ public class Test {
         System.out.println(list);
     }
 
+    public static void checkMonthFirstDayIsSunday() {
+        /**
+         * 1901-2019
+         * 月第一天 是星期日
+         */
+        Date start = new Date(1901, 1, 1);
+        Date end = new Date(2020, 1, 1);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        Calendar st=Calendar.getInstance();
+        Calendar ed=Calendar.getInstance();
+        st.set(1901, 1, 1);
+        ed.set(2020, 1, 1);
+        int i = 0;
+        for ( ;st.before(ed); ) {
+            int date = st.get(Calendar.DATE);
+            int w = st.get(Calendar.DAY_OF_WEEK) - 1; // 指示一个星期中的某天。
+
+            if (0 == w && 1 == date) {
+                i++;
+                Date now = st.getTime();
+                System.out.println(dateFormat.format(now) + "; " + st.getTime());
+            }
+            st.add(Calendar.DAY_OF_YEAR,1);
+        }
+        System.out.println(i);
+    }
 
     public static void main(String[] args) {
+        checkMonthFirstDayIsSunday();
         check();
 
         System.out.println(0^1);
