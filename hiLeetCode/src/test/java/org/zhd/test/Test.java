@@ -1,8 +1,11 @@
 package org.zhd.test;
 
-import java.text.DateFormat;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class Test {
     class Kstr {
@@ -143,14 +146,170 @@ public class Test {
         System.out.println(i);
     }
 
-    public static void main(String[] args) {
-        checkMonthFirstDayIsSunday();
-        check();
+    public static void wave() {
+        for (; true; ) {
+            for (int i = 0; i < 9600000; i++) {
 
-        System.out.println(0^1);
-        System.out.println(1^1);
-        System.out.println(2^1);
-        System.out.println(3^1);
+            }
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static void testStop() throws InterruptedException {
+        final int[] array = new int[80000];
+        Random random = new Random();
+        for(int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(i + 1);
+        }
+
+        final Thread t = new Thread(() -> {
+            try {
+                // sort
+                for (int i = 0; i < array.length-1; i++){
+                    for(int j = 0 ;j < array.length - i - 1; j++){
+                        if(array[j] < array[j + 1]){
+                            int temp = array[j];
+                            array[j] = array[j + 1];
+                            array[j + 1] = temp;
+                        }
+                    }
+                }
+                // print
+                for(int i : array) {
+                    System.out.println(i);
+                }
+            } catch (Error err) {
+                err.printStackTrace();
+            }
+            System.out.println("in thread t");
+        });
+
+        t.start();
+        TimeUnit.SECONDS.sleep(1);
+
+        System.out.println("go to stop thread t");
+        t.stop();
+        System.out.println("finish main");
+    }
+
+    /**
+     * 中断的使用场景有以下几个：
+     *
+     * 1. 点击某个桌面应用中的取消按钮时；
+     * 2. 某个操作超过了一定的执行时间限制需要中止时；
+     * 3. 多个线程做相同的事情，只要一个线程成功其它线程都可以取消时；
+     * 4. 一组线程中的一个或多个出现错误导致整组都无法继续时；
+     * 5. 当一个应用或服务需要停止时。
+     */
+    static void testInterrupt() {
+        final Thread fileIteratorThread = new Thread() {
+            public void run() {
+                try {
+
+                    String path = "/Users/tonto/java/github.com";
+
+                    final File f = new File(path);
+                    String[] ss = f.list();
+                    if (ss == null) return;
+                    List<File> fList = new ArrayList<>();
+                    for (String s : ss) {
+                        fList.add(new File(f, s));
+                    }
+                    ss = null; // help gc
+                    AtomicInteger cnt = new AtomicInteger();
+                    AtomicLong size = new AtomicLong();
+
+                    for (; !fList.isEmpty(); ) {
+
+                        ListIterator<File> it = fList.listIterator();
+                        for (; it.hasNext(); ) {
+                            File fe = it.next();
+                            it.remove();
+
+                            if(fe.isFile()) {
+                                System.out.println(fe + " is a file.");
+                                cnt.getAndAdd(1);
+                                size.getAndAdd(fe.getTotalSpace());
+//                                return;
+                            } else {
+//                                System.out.println(fe + " is a dir.");
+                                String[] tmpS = fe.list();
+                                if (null == tmpS) {
+                                    continue;
+                                }
+                                for (String s : tmpS) {
+                                    it.add(new File(fe, s));
+                                }
+                            }
+
+                            // interrupted
+                            if(Thread.interrupted()) {
+                                System.out.println("has count file: " + cnt.get() + "; file's size: " + size.get());
+                                throw new InterruptedException("file scan has been interrupt");
+                            }
+                        }
+                    }
+                    System.out.println("total file count: " + cnt.get() + "; file's size: " + size.get());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        final Thread cmdThread = new Thread(() -> {
+            while(true) {
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+//                String cmd;
+//                try {
+//                    cmd = reader.readLine();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    return ;
+//                }
+//
+//
+//                if("quit".equalsIgnoreCase(cmd.trim())) {
+//
+//
+//
+//                } else {
+//                    System.out.println("输入 quit 退出文件扫描");
+//                }
+                try {
+                    Thread.sleep(10*1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("10 sec start");
+                if(fileIteratorThread.isAlive()) {
+                    fileIteratorThread.interrupt();
+                    return;
+                }
+
+            }
+        });
+
+//        cmdThread.start();
+        fileIteratorThread.start();
+    }
+
+
+    public static void main(String[] args) throws Exception {
+//        checkMonthFirstDayIsSunday();
+//        check();
+//
+//        System.out.println(0^1);
+//        System.out.println(1^1);
+//        System.out.println(2^1);
+//        System.out.println(3^1);
+//        wave();
+
+//        testStop();
+        testInterrupt();
     }
 
 }
