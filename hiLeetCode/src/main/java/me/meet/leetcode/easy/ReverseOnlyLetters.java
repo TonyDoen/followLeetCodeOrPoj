@@ -15,8 +15,8 @@ public final class ReverseOnlyLetters {
      * Example 3:
      * Input: "Test1ng-Leet=code-Q!"
      * Output: "Qedo1ct-eeLg=ntse-T!"
-     * Note:
      *
+     * Note:
      * S.length <= 100
      * 33 <= S[i].ASCIIcode <= 122
      * S doesn't contain \ or "
