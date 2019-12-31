@@ -52,7 +52,7 @@ public final class ReverseOnlyLetters {
         int length = src.length(), i = 0, j = length - 1;
         StringBuilder res = new StringBuilder(src);
 
-        for ( ; i < j; ) {
+        for (; i < j; ) {
             char ic = src.charAt(i);
             char jc = src.charAt(j);
 
@@ -71,6 +71,7 @@ public final class ReverseOnlyLetters {
         }
         return res.toString();
     }
+
     private static boolean isLetter(char c) {
         return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
     }
