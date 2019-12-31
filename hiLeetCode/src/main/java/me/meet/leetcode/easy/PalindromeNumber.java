@@ -1,7 +1,8 @@
 package me.meet.leetcode.easy;
 
 public final class PalindromeNumber {
-    private PalindromeNumber() {}
+    private PalindromeNumber() {
+    }
     /**
      * Determine whether an integer is a palindrome. An integer is a palindrome when it reads the same backward as forward.
      *
