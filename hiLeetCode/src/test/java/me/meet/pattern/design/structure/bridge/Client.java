@@ -1,10 +1,6 @@
 package me.meet.pattern.design.structure.bridge;
 
 
-import me.meet.pattern.design.structure.adapter.Adapter;
-import me.meet.pattern.design.structure.adapter.ConcreteTarget;
-import me.meet.pattern.design.structure.adapter.ITarget;
-
 public class Client {
     /**
      * 不必要的继承导致类爆炸
