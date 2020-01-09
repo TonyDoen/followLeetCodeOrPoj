@@ -2,6 +2,10 @@ package me.meet.pattern.design.creation.factory;
 
 public class Client {
     /**
+     *
+     */
+
+    /**
      * 简单工厂模式（Simple Factory Pattern）又叫静态工厂方法模式（Static FactoryMethod Pattern）。专门定义一个类（如上文中的CarFactory1、CarFactory2、CarFactory3）来负责创建其它类的实例，由它来决定实例化哪个具体类，从而避免了在客户端代码中显式指定，实现了解耦。该类由于可以创建同一抽象类（或接口）下的不同子类对象，就像一个工厂一样，因此被称为工厂类。
      *
      * 简单工厂模式角色划分
