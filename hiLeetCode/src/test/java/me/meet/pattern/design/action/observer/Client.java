@@ -2,6 +2,7 @@ package me.meet.pattern.design.action.observer;
 
 public class Client {
   /**
+   * url: https://www.cnblogs.com/lqmblog/p/8549833.html
    * 观察者模式定义
    * 观察者模式又叫发布-订阅模式，它定义了一种一对多的依赖关系，多个观察者对象可同时监听某一主题对象，当该主题对象状态发生变化时，相应的所有观察者对象都可收到通知。
    *
