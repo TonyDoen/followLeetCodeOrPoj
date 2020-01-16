@@ -8,12 +8,12 @@ public class RedState extends State {
      */
 
     public void handlePush(Context c) {
-        System.out.println("变成蓝色");
+        System.out.println("变成红色");
         c.setState(new BlueState());
     }
 
     public void handlePull(Context c) {
-        System.out.println("变成黑色");
+        System.out.println("变成红色");
         c.setState(new BlackState());
     }
 

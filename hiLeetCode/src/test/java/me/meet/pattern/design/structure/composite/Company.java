@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 // 复合组件（公司）
 public class Company extends Organization {
     //  private static Logger LOGGER = LoggerFactory.getLogger(Company.class);
-    private static final Logger LOG = Logger.getLogger(Department.class.getName());
+    private static final Logger LOG = Logger.getLogger(Company.class.getName());
 
     public Company(String name) {
         super(name);

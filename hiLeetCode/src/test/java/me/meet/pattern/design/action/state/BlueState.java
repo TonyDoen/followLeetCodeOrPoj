@@ -8,16 +8,16 @@ public class BlueState extends State {
      */
 
     public void handlePush(Context c) {
-        System.out.println("变成黑色");
+        System.out.println("变成蓝色");
         c.setState(new BlackState());
     }
 
     public void handlePull(Context c) {
-        System.out.println("变成红色");
+        System.out.println("变成蓝色");
         c.setState(new RedState());
     }
 
     public String getColor() {
-        return "Color.red";
+        return "Color.blue";
     }
 }

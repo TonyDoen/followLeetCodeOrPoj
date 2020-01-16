@@ -8,7 +8,7 @@ public class BlackState extends State {
      */
 
     public void handlePush(Context c) {
-        System.out.println("变成蓝色");
+        System.out.println("变成黑色");
         c.setState(new RedState());
     }
 
@@ -18,6 +18,6 @@ public class BlackState extends State {
     }
 
     public String getColor() {
-        return "Color.red";
+        return "Color.black";
     }
 }

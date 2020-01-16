@@ -12,6 +12,7 @@ public class ProxySubject implements ISubject {
     private static final Logger LOG = Logger.getLogger(ConcreteSubject.class.getName());
     private ISubject subject;
 
+    // 此处就是 装饰模式 与 代理模式的区别
     public ProxySubject() {
         subject = new ConcreteSubject();
     }
