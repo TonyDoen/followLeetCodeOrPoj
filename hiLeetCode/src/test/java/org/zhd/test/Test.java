@@ -297,19 +297,53 @@ public class Test {
         fileIteratorThread.start();
     }
 
-
-    public static void main(String[] args) throws Exception {
-//        checkMonthFirstDayIsSunday();
-//        check();
 //
-//        System.out.println(0^1);
-//        System.out.println(1^1);
-//        System.out.println(2^1);
-//        System.out.println(3^1);
-//        wave();
+//    public static void main(String[] args) throws Exception {
+////        checkMonthFirstDayIsSunday();
+////        check();
+////
+////        System.out.println(0^1);
+////        System.out.println(1^1);
+////        System.out.println(2^1);
+////        System.out.println(3^1);
+////        wave();
+//
+////        testStop();
+////        testInterrupt();
+//
+//        String s = longestPalindrome("dabbae");
+//        System.out.println(s);
+//    }
 
-//        testStop();
-        testInterrupt();
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        System.out.println(longestPalindrome(s));
     }
 
+    static String longestPalindrome(String s) {
+        int len = s.length();
+        boolean[][] dp = new boolean[len][len];
+        String result = s.substring(0, 1);
+        for (int i = 0; i < len; i++) {
+            dp[i][i] = true;
+        }
+        for (int i = 0; i < len - 1; i++) {
+            dp[i][i + 1] = s.charAt(i) == s.charAt(i + 1);
+            if (dp[i][i + 1]) {
+                result = s.substring(i, i + 1 + 1);
+            }
+        }
+
+        for (int k = 3; k <= len; k++) {
+            for (int i = 0; (i + k) <= len; i++) {
+                int j = i + k - 1;
+                dp[i][j] = dp[i + 1][j - 1] && s.charAt(i) == s.charAt(j);
+                if (dp[i][j] && (j - i + 1) > result.length()) {
+                    result = s.substring(i, j + 1);
+                }
+            }
+        }
+        return result;
+    }
 }
