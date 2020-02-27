@@ -111,6 +111,32 @@ public class MaxDistanceInBinaryTree {
     }
 
     /**
+     * 判断一个二叉排序树是不是平衡二叉树
+     */
+    private static int depth(Node node) {
+        if (null == node) {
+            return 0;
+        } else {
+            int ld = depth(node.left);
+            int rd = depth(node.right);
+            return 1 + (ld > rd ? ld : rd);
+        }
+    }
+
+    static boolean isBalance(Node root) {
+        if (null == root) {
+            return true;
+        }
+        int dist = Math.abs(depth(root.left) - depth(root.right));
+        if (dist > 1) {
+            return false;
+        } else {
+            return isBalance(root.left) && isBalance(root.right);
+        }
+    }
+
+    /**
+     * 求数列里的最大差值
      * a[1], a[2], a[3], ..., a[n]; what is max{a[j] - a[i]}, when j>i, a[i] > 0
      */
     private static void maxRdx(int[] arr) {
@@ -169,9 +195,26 @@ public class MaxDistanceInBinaryTree {
         System.out.println(result);
     }
 
+    private static void checkIsBlance() {
+        /**
+         *      0
+         *     / |
+         *    1   2
+         *   /
+         *  3
+         */
+        Node _3 = new Node(3, null, null);
+        Node _1 = new Node(1, _3, null);
+        Node _2 = new Node(2, null, null);
+        Node root = new Node(0, _1, _2);
+        boolean result = isBalance(root);
+        System.out.println("平衡否？" + result);
+    }
+
     public static void main(String[] args) {
         checkMaxDistance();
         checkReConstructBinaryTree();
         checkMaxRdx();
+        checkIsBlance();
     }
 }

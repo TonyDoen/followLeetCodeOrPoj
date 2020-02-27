@@ -1,6 +1,31 @@
 package org.zhd.test;
 
 public class KMP {
+    /**
+     * 假设现在我们面临这样一个问题：有一个文本串S，和一个模式串P，现在要查找P在S中的位置，怎么查找呢？
+     *
+     * 如果用暴力匹配的思路，
+     * 并假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置，则有：
+     * 如果当前字符匹配成功（即S[i] == P[j]），则i++，j++，继续匹配下一个字符；
+     * 如果失配（即S[i]! = P[j]），令i = i - (j - 1)，j = 0。相当于每次匹配失败时，i 回溯，j 被置为0。
+     *
+     * 理清楚了暴力匹配算法的流程及内在的逻辑，咱们可以写出暴力匹配的代码，
+     */
+
+    /**
+     * Knuth-Morris-Pratt 字符串查找算法，简称为 “KMP算法”，常用于在一个文本串S内查找一个模式串P 的出现位置，这个算法由Donald Knuth、Vaughan Pratt、James H. Morris三人于1977年联合发表，故取这3人的姓氏命名此算法。
+     * 下面先直接给出KMP的算法流程（如果感到一点点不适，没关系，坚持下，稍后会有具体步骤及解释，越往后看越会柳暗花明☺）：
+     *
+     * 假设现在文本串S匹配到 i 位置，模式串P匹配到 j 位置
+     * 1. 如果j = -1，或者当前字符匹配成功（即S[i] == P[j]），都令i++，j++，继续匹配下一个字符；
+     * 2. 如果j != -1，且当前字符匹配失败（即S[i] != P[j]），则令 i 不变，j = next[j]。
+     *    此举意味着失配时，模式串P相对于文本串S向右移动了j - next [j] 位。
+     *    换言之，当匹配失败时，模式串向右移动的位数为：失配字符所在位置 - 失配字符对应的next 值（next 数组的求解会在下文的3.3.3节中详细阐述），
+     *    即移动的实际位数为：j - next[j]，且此值大于等于1。
+     *
+     * 很快，你也会意识到next 数组各值的含义：代表当前字符之前的字符串中，有多大长度的相同前缀后缀。例如如果next [j] = k，代表j 之前的字符串中有最大长度为k 的相同前缀后缀。
+     * 也意味着在某个字符失配时，该字符对应的next 值会告诉你下一步匹配中，模式串应该跳到哪个位置（跳到next [j] 的位置）。如果next [j] 等于0或-1，则跳到模式串的开头字符，若next [j] = k 且 k > 0，代表下次匹配跳到j 之前的某个字符，而不是跳到开头，且具体跳过了k 个字符。
+     */
 
     static void kmp(String source, String pattern) {
         int[] N = getN(pattern);
@@ -74,7 +99,7 @@ public class KMP {
     }
 
     public static void main(String[] args) {
-        String source = "abcdefjhijklmnijkl";
+        String source = "jikijkcidiefjhijklmnijkl";
         String pattern = "ijkl";
         kmp(source, pattern);
     }
