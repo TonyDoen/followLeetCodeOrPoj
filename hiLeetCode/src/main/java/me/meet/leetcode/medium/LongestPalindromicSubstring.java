@@ -7,7 +7,14 @@ public final class LongestPalindromicSubstring {
     /**
      * Longest Palindromic Substring (最长回文子串)
      *
+     * 示例 1：
+     *   输入: "babad"
+     *   输出: "bab"
+     *   注意: "aba" 也是一个有效答案。
      *
+     * 示例 2：
+     *   输入: "cbbd"
+     *   输出: "bb"
      */
 
     /**
@@ -58,7 +65,7 @@ public final class LongestPalindromicSubstring {
      * 令 dp[i][j] 表示 S[i] 至 S[j] 所表示的子串是否是回文子串。
      * <p>
      * 1. 当 i == j，dp[i][j] 是回文子串（单字符都是回文子串）；
-     * 2. 当 j - i < 3，只要 S[i] == S[j]，则 dp[i][j] 是回文子串（如"aa"，“aba”），否则不是；
+     * 2. 当 j - i < 3，只要 S[i] == S[j]，则 dp[i][j] 是回文子串（如"aa"，"aba"），否则不是；
      * 3. 当 j - i >= 3，如果 S[i] == S[j] && dp[i+1][j-1] ，则 dp[i][j] 是回文子串，否则不是 。
      * <p>
      * 由此可以写出状态转移方程：
@@ -125,13 +132,33 @@ public final class LongestPalindromicSubstring {
         return result;
     }
 
+    static String longestPalindromicSubstring0(String s) {
+        int length = s.length();
+        boolean[][] dp = new boolean[length][length];
+        String result = s.substring(0, 1);
+
+        //4、依次循环单个字符、两个字符、三个字符、四个字符......
+        for (int gap = 0; gap < length; gap++) {
+            for (int i = 0; i < length - gap; i++) {
+                int j = i + gap;
+                if (s.charAt(i) == s.charAt(j) && (j - i < 3 || dp[i + 1][j - 1])) {
+                    dp[i][j] = true;
+                    if (j + 1 - i > result.length()) {
+                        result = s.substring(i, j + 1);
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
     /**
      * Manacher（马拉车）算法
-     * Manacher算法，又叫“马拉车”算法，可以在时间复杂度为O(n)的情况下求解一个字符串的最长回文子串长度的问题。
-     * 1. 将初始字符串每个字符左右两边填充’#’(也可以是其它字符)，巧妙地解决对称数量奇偶的问题（如"aba"变成"#a#b#a#",“bb"变成”#b#b#",处理后的回文子串都是奇数）；
+     * Manacher算法，又叫"马拉车"算法，可以在时间复杂度为O(n)的情况下求解一个字符串的最长回文子串长度的问题。
+     * 1. 将初始字符串每个字符左右两边填充’#’(也可以是其它字符)，巧妙地解决对称数量奇偶的问题（如"aba"变成"#a#b#a#","bb"变成"#b#b#",处理后的回文子串都是奇数）；
      * 2. 遍历整个字符串，用一个数组来记录以该字符为中心的回文子串半径，并记录已经扩展到的右边界；
      * 3. 每一次遍历的时候，如果该字符在已知回文串最右边界的覆盖下，那么就计算其相对最右边界回文串中心对称的位置，得出已知回文串的长度；
-     * 4. 判断该长度和右边界，如果达到了右边界，那么需要继续进行中心扩展探索。当然，如果第3步该字符没有在最右边界的“羽翼”下，则直接进行中心扩展探索。进行中心扩展探索的时候，同时又更新右边界；
+     * 4. 判断该长度和右边界，如果达到了右边界，那么需要继续进行中心扩展探索。当然，如果第3步该字符没有在最右边界的"羽翼"下，则直接进行中心扩展探索。进行中心扩展探索的时候，同时又更新右边界；
      * 5. 最后得到最长回文子串之后，去掉其中的特殊符号即可。
      * <p>
      * 时间复杂度：O(n)，这个算法在循环的时候，要么扩展右边界，要么直接得出结论，时间复杂度可以到O(n)。
@@ -153,6 +180,7 @@ public final class LongestPalindromicSubstring {
         int[] halfLenArr = new int[len];
         for (int i = 0; i < len; i++) {
             boolean needCalc = true; //
+            // 3. 每一次遍历的时候，如果该字符在已知回文串最右边界的覆盖下，那么就计算其相对最右边界回文串中心对称的位置，得出已知回文串的长度；
             if (right > i) {
                 int leftCenter = 2 * rightCenter - i;
                 halfLenArr[i] = halfLenArr[leftCenter];
@@ -163,7 +191,7 @@ public final class LongestPalindromicSubstring {
                     needCalc = false;
                 }
             }
-
+            // 4. 判断该长度和右边界，如果达到了右边界，那么需要继续进行中心扩展探索。当然，如果第3步该字符没有在最右边界的"羽翼"下，则直接进行中心扩展探索。进行中心扩展探索的时候，同时又更新右边界；
             // 中心扩展
             if (needCalc) {
                 while (i - 1 - halfLenArr[i] >= 0 && i + 1 + halfLenArr[i] < len) {
@@ -197,9 +225,10 @@ public final class LongestPalindromicSubstring {
         String src = "fkjlaabbccddeeddccbbaaljkd";
 //        String src = "eabbaf";
 //        String result = longestPalindromicSubstring(src);
-//        String result = longestPalindromicSubstring1(src);
+        String result = longestPalindromicSubstring1(src);
 
-        String result = longestPalindromicSubstring3(src);
+//        String result = longestPalindromicSubstring3(src);
+//        String result = longestPalindromicSubstring0(src);
         System.out.println(result);
     }
 }
