@@ -1,8 +1,5 @@
 package me.meet.leetcode.easy;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public final class LemonadeChange {
     private LemonadeChange() {
     }

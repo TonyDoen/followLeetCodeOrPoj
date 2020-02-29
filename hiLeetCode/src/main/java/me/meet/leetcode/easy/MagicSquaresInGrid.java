@@ -1,5 +1,7 @@
 package me.meet.leetcode.easy;
 
+import java.util.ArrayList;
+
 public final class MagicSquaresInGrid {
     private MagicSquaresInGrid() {}
 
@@ -53,6 +55,7 @@ public final class MagicSquaresInGrid {
     }
 
     static boolean magic(int... vals) {
+
         int[] count = new int[16];
         for (int v: vals) count[v]++;
         for (int v = 1; v <= 9; ++v)
@@ -67,5 +70,18 @@ public final class MagicSquaresInGrid {
                 vals[2] + vals[5] + vals[8] == 15 &&
                 vals[0] + vals[4] + vals[8] == 15 &&
                 vals[2] + vals[4] + vals[6] == 15);
+    }
+
+    public static void main(String[] args) {
+//        ArrayList array = new ArrayList();
+//        array.add(1,"hello world");
+//        System.out.println();
+
+        Integer i = null;
+        test(i);
+    }
+
+    static void test(int i) {
+
     }
 }

@@ -55,7 +55,7 @@ public final class IP2CIDR {
         for (String num : nums) {
             x = x * 256 + Integer.valueOf(num);
         }
-        while (n > 0) {
+        while (n > 0) { //TODO： error
             long step = x & -x;
             while (step > n) step /= 2;
             res.push(convert(x, step));

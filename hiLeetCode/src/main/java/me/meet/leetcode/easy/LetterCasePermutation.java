@@ -30,7 +30,7 @@ public final class LetterCasePermutation {
      * 这道题给了我们一个只包含字母和数字的字符串，让我们将字母以大小写进行全排列，给的例子很好的说明了题意。博主认为这道题给Easy有点不合适，至少应该是Medium的水准。这题主要参考了官方解答贴的解法，我们关心的是字母，数字的处理很简单，直接加上就可以了。比如说S = "abc"，那么先让 res = [""]，然后res中的每个字符串分别加上第一个字符a和A，得到 ["a", "A"]，然后res中的每个字符串分别加上第二个字符b和B，得到 ["ab", "Ab", "aB", "AB"]，然后res中的每个字符串分别加上第三个字符c和C，得到 ["abc", "Abc", "aBc", "ABc", "abC", "AbC", "aBC", "ABC"]，参见代码如下：
      */
 
-    static List<String> letterCasePermutation1(String S) { // error
+    static List<String> letterCasePermutation1(String S) { //TODO： error
         List<String> res = new LinkedList<String>();
         int sLen = S.length();
         for (int i = 0; i < sLen; i++) {
