@@ -7,7 +7,100 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class Test {
+public class SortTest {
+    /**
+     * 快速排序
+     * 1、时间复杂度：O(n*logn)  2、空间复杂度：O(logn)  3、非稳定排序  4、原地排序
+     */
+    static int[] quickSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int mid = partition(arr, left, right); // 获取中轴元素所处的位置
+            arr = quickSort(arr, left, mid - 1);
+            arr = quickSort(arr, mid + 1, right);
+        }
+        return arr;
+    }
+
+    private static int partition(int[] arr, int left, int right) {
+        int pivot = arr[left], i = left + 1, j = right;
+
+        for (; ; ) {
+            for (; i <= j && arr[i] <= pivot; ) {
+                i++; // 向右找到第一个小于等于 pivot 的元素位置
+            }
+            for (; i <= j && arr[j] >= pivot; ) {
+                j--; // 向左找到第一个大于等于 pivot 的元素位置
+            }
+            if (i >= j) {
+                break;
+            }
+            // swap 交换两个元素的位置，使得左边的元素不大于pivot,右边的不小于pivot
+            int tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+        }
+        arr[left] = arr[j];
+        arr[j] = pivot;
+        return j;
+    }
+
+    private static void testQuickSort() {
+        int[] arr = new int[]{4, 3, 1, 2, 3, 3, 5, 6, 8, 7};
+        quickSort(arr, 0, arr.length - 1);
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+    /**
+     * 堆排序
+     * 1、时间复杂度：O(n*logn)  2、空间复杂度：O(1)  3、非稳定排序  4、原地排序
+     */
+    static int[] heapSort(int[] arr) {
+        // 构建堆
+        int length = arr.length;
+        for (int i = (length - 2) / 2; i >= 0; i--) {
+            downAdjust(arr, i, length - 1);
+        }
+        //进行堆排序
+        for (int i = length - 1; i >= 1; i--) {
+            int tmp = arr[i];
+            arr[i] = arr[0];
+            arr[0] = tmp;
+            downAdjust(arr, 0, i - 1);
+        }
+        return arr;
+    }
+
+    private static void downAdjust(int[] arr, int parent, int n) {
+        int tmp = arr[parent]; // 临时保存要下沉的元素
+        int child = 2 * parent + 1; // 定位左孩子节点的位置
+        for (; child <= n; ) {
+            if (child + 1 <= n && arr[child] < arr[child + 1]) {
+                child++; // 如果右孩子节点比左孩子大，则定位到右孩子
+            }
+            if (arr[child] <= tmp) {
+                break; // 如果孩子节点小于或等于父节点，则下沉结束
+            }
+            // 父节点进行下沉
+            arr[parent] = arr[child];
+            parent = child;
+            child = 2 * parent + 1;
+        }
+        arr[parent] = tmp;
+    }
+
+    private static void testHeapSort() {
+        int[] arr = new int[]{4, 3, 1, 2, 3, 3, 5, 6, 8, 7};
+        heapSort(arr);
+        for (int i : arr) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
+    }
+
+
     class Kstr {
         Double k;
         String v;
@@ -55,39 +148,39 @@ public class Test {
 
         List<String> res = new ArrayList<>();
 //        while (!results.isEmpty()) {
-            int i = 0;
-            for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-                List<String> value = entry.getValue();
-                if (null == value || value.isEmpty()) {
-                    continue;
-                }
-                i++;
-                String _0 = value.get(0);
-                value.remove(_0);
-                remain.remove(_0);
-                res.add(_0);
+        int i = 0;
+        for (Map.Entry<String, List<String>> entry : map.entrySet()) {
+            List<String> value = entry.getValue();
+            if (null == value || value.isEmpty()) {
+                continue;
+            }
+            i++;
+            String _0 = value.get(0);
+            value.remove(_0);
+            remain.remove(_0);
+            res.add(_0);
 
-                if (i >= resultsPerPage) {
-                    res.add("");
-                    i = 0;
-                    break;
-                } else {
+            if (i >= resultsPerPage) {
+                res.add("");
+                i = 0;
+                break;
+            } else {
 
-                    Iterator<String> it = remain.iterator();
-                    while (it.hasNext()) {
-                        i++;
-                        String bak = it.next();
-                        value.remove(bak);
-                        it.remove();
-                        res.add(bak);
-                        if (i >= resultsPerPage || remain.isEmpty()) {
-                            res.add("");
-                            i = 0;
-                            break;
-                        }
+                Iterator<String> it = remain.iterator();
+                while (it.hasNext()) {
+                    i++;
+                    String bak = it.next();
+                    value.remove(bak);
+                    it.remove();
+                    res.add(bak);
+                    if (i >= resultsPerPage || remain.isEmpty()) {
+                        res.add("");
+                        i = 0;
+                        break;
                     }
-
                 }
+
+            }
 //            }
         }
 
@@ -127,12 +220,12 @@ public class Test {
         Date end = new Date(2020, 1, 1);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-        Calendar st=Calendar.getInstance();
-        Calendar ed=Calendar.getInstance();
+        Calendar st = Calendar.getInstance();
+        Calendar ed = Calendar.getInstance();
         st.set(1901, 1, 1);
         ed.set(2020, 1, 1);
         int i = 0;
-        for ( ;st.before(ed); ) {
+        for (; st.before(ed); ) {
             int date = st.get(Calendar.DATE);
             int w = st.get(Calendar.DAY_OF_WEEK) - 1; // 指示一个星期中的某天。
 
@@ -141,7 +234,7 @@ public class Test {
                 Date now = st.getTime();
                 System.out.println(dateFormat.format(now) + "; " + st.getTime());
             }
-            st.add(Calendar.DAY_OF_YEAR,1);
+            st.add(Calendar.DAY_OF_YEAR, 1);
         }
         System.out.println(i);
     }
@@ -162,16 +255,16 @@ public class Test {
     static void testStop() throws InterruptedException {
         final int[] array = new int[80000];
         Random random = new Random();
-        for(int i = 0; i < array.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             array[i] = random.nextInt(i + 1);
         }
 
         final Thread t = new Thread(() -> {
             try {
                 // sort
-                for (int i = 0; i < array.length-1; i++){
-                    for(int j = 0 ;j < array.length - i - 1; j++){
-                        if(array[j] < array[j + 1]){
+                for (int i = 0; i < array.length - 1; i++) {
+                    for (int j = 0; j < array.length - i - 1; j++) {
+                        if (array[j] < array[j + 1]) {
                             int temp = array[j];
                             array[j] = array[j + 1];
                             array[j + 1] = temp;
@@ -179,7 +272,7 @@ public class Test {
                     }
                 }
                 // print
-                for(int i : array) {
+                for (int i : array) {
                     System.out.println(i);
                 }
             } catch (Error err) {
@@ -198,7 +291,7 @@ public class Test {
 
     /**
      * 中断的使用场景有以下几个：
-     *
+     * <p>
      * 1. 点击某个桌面应用中的取消按钮时；
      * 2. 某个操作超过了一定的执行时间限制需要中止时；
      * 3. 多个线程做相同的事情，只要一个线程成功其它线程都可以取消时；
@@ -230,7 +323,7 @@ public class Test {
                             File fe = it.next();
                             it.remove();
 
-                            if(fe.isFile()) {
+                            if (fe.isFile()) {
                                 System.out.println(fe + " is a file.");
                                 cnt.getAndAdd(1);
                                 size.getAndAdd(fe.getTotalSpace());
@@ -247,7 +340,7 @@ public class Test {
                             }
 
                             // interrupted
-                            if(Thread.interrupted()) {
+                            if (Thread.interrupted()) {
                                 System.out.println("has count file: " + cnt.get() + "; file's size: " + size.get());
                                 throw new InterruptedException("file scan has been interrupt");
                             }
@@ -261,7 +354,7 @@ public class Test {
         };
 
         final Thread cmdThread = new Thread(() -> {
-            while(true) {
+            while (true) {
 //                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 //                String cmd;
 //                try {
@@ -280,12 +373,12 @@ public class Test {
 //                    System.out.println("输入 quit 退出文件扫描");
 //                }
                 try {
-                    Thread.sleep(10*1000);
+                    Thread.sleep(10 * 1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 System.out.println("10 sec start");
-                if(fileIteratorThread.isAlive()) {
+                if (fileIteratorThread.isAlive()) {
                     fileIteratorThread.interrupt();
                     return;
                 }
@@ -316,9 +409,12 @@ public class Test {
 //    }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String s = sc.next();
-        System.out.println(longestPalindrome(s));
+//        Scanner sc = new Scanner(System.in);
+//        String s = sc.next();
+//        System.out.println(longestPalindrome(s));
+
+//        testQuickSort();
+        testHeapSort();
     }
 
     static String longestPalindrome(String s) {

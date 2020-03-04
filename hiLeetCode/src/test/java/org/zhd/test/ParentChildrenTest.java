@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class ParentChildrenTest {
-    private ParentChildrenTest() {}
+    private ParentChildrenTest() {
+    }
 
     static class Parent {
 
