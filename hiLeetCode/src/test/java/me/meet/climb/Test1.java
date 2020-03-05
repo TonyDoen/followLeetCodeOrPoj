@@ -1,6 +1,36 @@
 package me.meet.climb;
 
+import java.util.*;
+
 public class Test1 {
+    /**
+     * Chess Placing
+     * 题意：给了一维的一个棋盘，共有n（n必为偶数）个格子。棋盘上是黑白相间的。现在棋盘上有n/2个棋子，让你全部移动到黑色格子或者白色格子，要求步数最少，并输出步数。
+     * 题解：由于黑色或者白色都是固定位置，我们对棋子位置排个序，然后全部移动到任意一个颜色，取两个最小步数的最小值就好了。
+     */
+    static int chessPlacing(int n) {
+        if (0 != n % 2) {
+            throw new IllegalArgumentException();
+        }
+        int chessNum = n / 2;
+        Set<Integer> set = new HashSet<>();
+        Random r = new Random();
+        do {
+            set.add(r.nextInt(n));
+        } while (set.size() < chessNum);
+
+        Integer[] arr = new Integer[chessNum];
+        arr = set.toArray(arr);
+
+        Arrays.sort(arr);
+        int res1 = 0, res2 = 0;
+        for (int i = 0; i < chessNum; i++) {
+            res1 += Math.abs(arr[i] - i * 2);
+            res2 += Math.abs(arr[i] - (i * 2 - 1));
+        }
+
+        return Math.min(res1, res2);
+    }
 
     /**
      * 猴子爬山
@@ -43,8 +73,8 @@ public class Test1 {
      * 量水问题
      * 有2个无刻度两杯 A, B, 其容积分别是 a 升和 b 升(a > b); 允许量杯从水缸中取水或倒回水缸。量杯可以互相倒。
      * 2. 求 量杯A 得到 c 升(c < b < a) 水 最少步数
-     *
-     *
+     * <p>
+     * <p>
      * 题意：倒水问题。给你两个标有容量的空杯子，求最少需要多少步能够倒出含指定容量的水。并输出倒水步骤（升级版）。
      * 思路：看到最少步数和输出具体步骤就应该想到BFS。用二维数组b来记录两个杯子的容量。分六步，倒满1、倒满2、倒空1、倒空2、1倒入2、2倒入1。倒入水时要保证不会溢出，所以倒入要分全部倒入和部分倒入两种情况。步骤较多，所以代码啰嗦些。。
      */
@@ -185,6 +215,8 @@ public class Test1 {
 //        boolean tf = minSteps(3, 2, 1);
 //        System.out.println(tf);
 
-        bfs(3, 2, 1);
+//        bfs(3, 2, 1);
+
+        chessPlacing(4);
     }
 }
