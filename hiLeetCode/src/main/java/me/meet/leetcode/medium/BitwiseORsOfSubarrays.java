@@ -66,23 +66,29 @@ public final class BitwiseORsOfSubarrays {
      *
      * 这样数字就减少了很多，使得计算效率也就大大的提高了。具体的做法是，开始先建立两个 HashSet，分别是 res 和 cur，然后遍历数组A，对于每个遍历到的数字，首先生成一个自己的集合 tmp，然后遍历集合 cur 中的所有数字，将当前数字和 cur 中的每个数字相'或'，并存入 tmp 中，由于 HashSet 可以自动去重复，所以 tmp 中保存的只有不同的值，然后将 tmp 全部赋值给 cur，再将 cur 中的所有值加入结果 res 中，由于结果 res 也是 HashSet，也可以自动去重复，最后留在 res 中的就是所有不同的子数组的总'或'值，参见代码如下：
      */
-    static int subarrayBitwiseORs(int[] A) {
-        Set<Integer> res = new HashSet<>(), cur = new HashSet<>();
-        for (int i : A) {
-            Set<Integer> tmp = new HashSet<>();
+    static int subarrayBitwiseORs(int[] a) {
+        Set<Integer> res = new HashSet<>(), cur = new HashSet<>(); // 1. 开始先建立两个 HashSet，分别是 res 和 cur
+        for (int i : a) {                                          // 2. 然后遍历数组A，
+            Set<Integer> tmp = new HashSet<>();                    // 3. 对于每个遍历到的数字，生成一个自己的集合 tmp
             tmp.add(i);
-            for (int j : cur) tmp.add(i | j);
-            cur = tmp;
-            res.addAll(cur);
+            for (int j : cur) {                                    // 4. 然后遍历集合 cur 中的所有数字，将当前数字和 cur 中的每个数字相'或'，并存入 tmp 中
+                tmp.add(i | j);
+            }
+            cur = tmp;                                             // 5. 然后将 tmp 全部赋值给 cur
+            res.addAll(cur);                                       // 6. 再将 cur 中的所有值加入结果 res 中
         }
         return res.size();
     }
 
-    public static void main(String[] args) {
+    private static void testSubarrayBitwiseORs() {
         int[] arr = new int[]{0};
-        arr = new int[]{1,1,2};
+//        arr = new int[]{1,1,2};
         arr = new int[]{0, 3, 4, 6, 5};
         int res = subarrayBitwiseORs(arr);
         System.out.println(res);
+    }
+
+    public static void main(String[] args) {
+        testSubarrayBitwiseORs();
     }
 }
