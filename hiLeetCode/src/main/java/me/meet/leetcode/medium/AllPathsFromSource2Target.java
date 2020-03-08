@@ -1,12 +1,10 @@
 package me.meet.leetcode.medium;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class AllPathsFromSource2Target {
-    private AllPathsFromSource2Target() {}
+    private AllPathsFromSource2Target() {
+    }
 
     /**
      url: https://leetcode.com/problems/all-paths-from-source-to-target/solution/
@@ -31,32 +29,13 @@ public final class AllPathsFromSource2Target {
      */
 
     /**
-     题意：从起点到目标点到所有路径
-
+     * 题意：给一个有向无环图，二维数组代表图中存在等路径，例如：graph[i]=[j,k] 表示(i,j),(i,k)这两条路径存在。 求从起点到目标点到所有路径
+     * 思路：
      */
 
-    static List<List<Integer>> allPathsSourceTarget(int[][] graph) {
-        return solve(graph, 0);
-    }
-    private static List<List<Integer>> solve(int[][] graph, int node) {
-        int N = graph.length;
-        List<List<Integer>> ans = new ArrayList<List<Integer>>();
-        if (node == N - 1) {
-            List<Integer> path = new ArrayList<Integer>();
-            path.add(N-1);
-            ans.add(path);
-            return ans;
-        }
-
-        for (int nei: graph[node]) {
-            for (List<Integer> path: solve(graph, nei)) {
-                path.add(0, node);
-                ans.add(path);
-            }
-        }
-        return ans;
-    }
-
+    /**
+     * 思路：这道题的本质就是遍历邻接链表，由于要列出所有路径情况，那么递归就是不二之选了。我们用cur来表示当前遍历到的结点，初始化为0，然后在递归函数中，先将其加入路径path，如果cur等于N-1了，那么说明到达结点N-1了，将path加入结果res。否则我们再遍历cur的邻接结点，调用递归函数即可
+     */
     static List<List<Integer>> allPathsSourceTarget2(int[][] graph) {
         int n = graph.length;
         Map<Integer, List<Integer>> g = new HashMap<Integer, List<Integer>>();
@@ -80,6 +59,7 @@ public final class AllPathsFromSource2Target {
 
         return res;
     }
+
     private static void dfs(int v, int end, boolean[] used, Map<Integer, List<Integer>> g, List<Integer> path, List<List<Integer>> res) {
         if (v == end) {
             res.add(new ArrayList<Integer>(path));
@@ -101,12 +81,45 @@ public final class AllPathsFromSource2Target {
         }
     }
 
-    public static void main(String[] args) {
-        int[][] graph = {{1,2}, {3}, {3}, {}};
+    /**
+     * 思路：这道题的本质就是遍历邻接链表，由于要列出所有路径情况，那么递归就是不二之选了。我们用cur来表示当前遍历到的结点，初始化为0，然后在递归函数中，先将其加入路径path，如果cur等于N-1了，那么说明到达结点N-1了，将path加入结果res。否则我们再遍历cur的邻接结点，调用递归函数即可
+     */
+    static List<List<Integer>> allPathsSourceTarget3(int[][] graph) {
+        return helper(graph, 0);
+    }
 
-        List<List<Integer>> res = allPathsSourceTarget(graph);
+    private static List<List<Integer>> helper(int[][] graph, int cur) {
+        List<List<Integer>> res = new LinkedList<>();
+
+        if (cur == graph.length - 1) {                           // 1. 如果cur等于N-1了，直接将cur先装入数组，再装入结果res中返回。
+            LinkedList<Integer> l1 = new LinkedList<>();
+            l1.add(cur);
+            res.add(l1);
+            return res;
+        }
+
+        for (int neighbor : graph[cur]) {                        // 2. 否则就遍历cur的邻接结点
+            for (List<Integer> path : helper(graph, neighbor)) { // 2.1 对于每个邻接结点，先调用递归函数，然后遍历其返回的结果
+                path.add(0, cur);                          // 2.2 对于每个遍历到的path，将cur加到数组首位置，然后将path加入结果res中
+                res.add(path);
+            }
+        }
+        return res;
+    }
+
+
+    private static void testAllPathsSourceTarget() {
+        int[][] graph = {{1, 2}, {3}, {3}, {}};
+
         List<List<Integer>> res2 = allPathsSourceTarget2(graph);
-        System.out.println(res);
         System.out.println(res2);
+
+        List<List<Integer>> res3 = allPathsSourceTarget3(graph);
+        System.out.println(res3);
+
+    }
+
+    public static void main(String[] args) {
+        testAllPathsSourceTarget();
     }
 }
