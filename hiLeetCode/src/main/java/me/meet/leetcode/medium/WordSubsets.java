@@ -5,6 +5,8 @@ import java.util.List;
 
 public final class WordSubsets {
     /**
+     * url: https://www.cnblogs.com/grandyang/p/11623684.html
+     *
      * Word Subsets
      * We are given two arrays A and B of words.  Each word is a string of lowercase letters.
      * Now, say that word b is a subset of word a if every letter in b occurs in a, including multiplicity.  For example, "wrr" is a subset of "warrior", but is not a subset of "world".
@@ -48,21 +50,21 @@ public final class WordSubsets {
     static List<String> wordSubsets(String[] a, String[] b) {
         List<String> res = new ArrayList<>(a.length);
         int[] charCnt = new int[26];
-        for (String c : b) {
+        for (String c : b) {                                      // 1. 统计模式串 b 中，字母分布
             int[] t = count(c);
-            for (int i = 0; i < 26; i++) {
+            for (int i = 0; i < 26; i++) {                        // 1.1 给出 模式串 b 中，字母统计值
                 charCnt[i] = Math.max(charCnt[i], t[i]);
             }
         }
-        for (String c : a) {
+        for (String c : a) {                                      // 2. 统计目标串 a 中，字母分布
             int[] t = count(c);
             int i = 0;
-            for (; i < 26; i++) {
+            for (; i < 26; i++) {                                 // 2.1 判断 目标串 a 中，符合条件的
                 if (t[i] < charCnt[i]) {
                     break;
                 }
             }
-            if (i == 26) {
+            if (i == 26) {                                        // 2.2 符合条件的字符一定标记到最后（共26个字母）
                 res.add(c);
             }
         }
