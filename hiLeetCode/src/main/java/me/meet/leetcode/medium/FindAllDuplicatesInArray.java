@@ -29,6 +29,24 @@ public class FindAllDuplicatesInArray {
         return res;
     }
 
+    static List<Integer> findDup(int[] nums) {           // 这类问题的一个重要条件就是1 ≤ a[i] ≤ n (n = size of array)，不然很难在O(1)空间和O(n)时间内完成。
+        LinkedList<Integer> res = new LinkedList<>();    // 首先来看一种正负替换的方法，这类问题的核心是就是找nums[i]和nums[nums[i] - 1]的关系，
+        for (int i = 0; i < nums.length; i++) {
+            int idx = Math.abs(nums[i]) - 1;
+            if (nums[idx] < 0) {
+                res.push(idx+1);
+            }
+            nums[idx] = -nums[idx];
+        }
+        return res;
+    }
+
+    private static void testFindDup() {
+        int[] nums = new int[]{4, 3, 2, 7, 8, 2, 3, 1};
+        List<Integer> res3 = findDup(nums);
+        System.out.println(res3);
+    }
+
     /**
      * 思路：
      * 下面这种方法是将nums[i]置换到其对应的位置nums[nums[i]-1]上去，比如对于没有重复项的正确的顺序应该是[1, 2, 3, 4, 5, 6, 7, 8]，而我们现在却是[4,3,2,7,8,2,3,1]，我们需要把数字移动到正确的位置上去，比如第一个4就应该和7先交换个位置，以此类推，最后得到的顺序应该是[1, 2, 3, 4, 3, 2, 7, 8]，我们最后在对应位置检验，如果nums[i]和i+1不等，那么我们将nums[i]存入结果res中即可，参见代码如下：
@@ -78,5 +96,7 @@ public class FindAllDuplicatesInArray {
         nums = new int[]{4, 3, 2, 7, 8, 2, 3, 1};
         List<Integer> res3 = findDuplicates3(nums);
         System.out.println(res3);
+
+        testFindDup();
     }
 }
