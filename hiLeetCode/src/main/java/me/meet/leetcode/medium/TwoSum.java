@@ -38,6 +38,11 @@ public final class TwoSum {
         return res;
     }
 
+    /**
+     * 思路2：(一次遍历数组即可)
+     * 1、遍历数组，如果map包含key为curNum的值，则找到目标值。
+     * 否则把target-curNum作为key, 索引作为value放入map
+     */
     static int[] twoSum2(int[] nums, int target) {
         HashMap<Integer, Integer> m = new HashMap<>();
         int[] res = new int[2];
