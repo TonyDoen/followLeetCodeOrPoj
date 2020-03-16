@@ -159,8 +159,65 @@ public final class SortList {
         System.out.println();
     }
 
+    /**
+     * 快速排序(Java)
+     *
+     * 时间复杂度为 O(n Log n);
+     *
+     * 思路：
+     * 1、以头节点为base，依次遍历，与base比较，比base小的放前面；返回base指针
+     * 2、递归调用上述过程
+     */
+    static Node quickSort(Node head) {
+        if (null == head || null == head.next) {
+            return head;
+        }
+        qSort(head, null);
+        return head;
+    }
+    private static void qSort(Node begin, Node end) {
+        if (begin != end && begin.next != end) {
+            Node p = partition(begin, end);
+            qSort(begin, p);
+            qSort(p.next, end);
+        }
+    }
+    private static Node partition(Node begin, Node end) {
+        int baseVal = begin.val;
+        Node base = begin, cur = begin.next;
+        for (; cur != end;) {
+            if (cur.val < baseVal) {
+                base = base.next;
+                // swap (base, cur)
+                int tmp = base.val;
+                base.val = cur.val;
+                cur.val = tmp;
+            }
+            cur = cur.next;
+        }
+        // swap (base, begin)
+        int tmp = base.val;
+        base.val = begin.val;
+        begin.val = tmp;
+
+        return base;
+    }
+    private static void testQuickSort() {
+        Node _3 = new Node(3, null);
+        Node _1 = new Node(1, _3);
+        Node _2 = new Node(2, _1);
+        Node _4 = new Node(4, _2);
+        Node tmp = quickSort(_4);
+        for (; null != tmp; ) {
+            System.out.print(tmp.val + " ");
+            tmp = tmp.next;
+        }
+        System.out.println();
+    }
+
     public static void main(String[] args) {
         testSortList();
         testInsertSort();
+        testQuickSort();
     }
 }
