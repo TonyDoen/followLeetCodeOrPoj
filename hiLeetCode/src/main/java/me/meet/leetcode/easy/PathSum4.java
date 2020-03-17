@@ -78,7 +78,7 @@ public final class PathSum4 {
             helper(m, left, cur, res);
         }
         if (null != m.get(right)) {
-            helper(m, left, cur, res);
+            helper(m, right, cur, res);
         }
     }
 
