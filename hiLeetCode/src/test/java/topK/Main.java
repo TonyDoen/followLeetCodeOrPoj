@@ -37,7 +37,7 @@ public class Main {
         }
         return res;
     }
-    
+
     static void testCombine() {
         LinkNode _7 = new LinkNode(7, null);
         LinkNode _4 = new LinkNode(4, _7);
@@ -53,13 +53,37 @@ public class Main {
             res = res.next;
         }
     }
-    
-    
+
+    static double pow2(int base, int n) {
+        if (0 == n) {
+            return 1;
+        }
+        if (1 == n) {
+            return base;
+        }
+        if (n >= 0) {
+            if (1 == n % 2) {
+                return pow2(base * base, n / 2) * base;
+            } else {
+                return pow2(base * base, n / 2);
+            }
+        } else {
+            return 1 / pow2(base, -n);
+        }
+    }
+
+    private static void testPow() {
+        double res = pow2(2, -3);
+        System.out.println(res);
+    }
+
     public static void main(String[] args) {
         //Scanner in = new Scanner(System.in);
         //int a = in.nextInt();
         //System.out.println(a);
-        testCombine();
+//        testCombine();
+        testPow();
         System.out.println("Hello World!");
     }
+
 }
