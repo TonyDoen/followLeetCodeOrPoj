@@ -117,7 +117,44 @@ public final class WordBreak2 {
         System.out.println(res);
     }
 
+    /**
+     * 合并递归函数
+     */
+    private static final Map<String, List<String>> map = new HashMap<>();
+
+    static List<String> wordBreak1(String s, Set<String> dict) {
+        List<String> res = null;
+        if (null != (res = map.get(s))) {
+            return res;
+        }
+        res = new LinkedList<>();
+        if (null == s || s.isEmpty()) {
+            res.add("");
+            return res;
+        }
+        for (String word : dict) {
+            int length = word.length();
+            if (s.length() < length || !word.equals(s.substring(0, length))) {
+                continue;
+            }
+            List<String> remain = wordBreak1(s.substring(length), dict);
+            for (String str2 : remain) {
+                res.add(word + (word.isEmpty() ? "" : " ") + str2);
+            }
+        }
+        map.put(s, res);
+        return res;
+    }
+
+    private static void testWordBreak1() {
+        String s = "catsanddog";
+        Set<String> dict = new HashSet<>(Arrays.asList("cat", "cats", "and", "sand", "dog"));
+        List<String> res = wordBreak1(s, dict);
+        System.out.println(res);
+    }
+
     public static void main(String[] args) {
         testWordBreak0();
+        testWordBreak1();
     }
 }
