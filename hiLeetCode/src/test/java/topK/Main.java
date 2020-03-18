@@ -77,13 +77,43 @@ public class Main {
         System.out.println(res);
     }
 
+    static final class Holder1 {
+        final Integer val;
+        //        Holder1() {}
+        Holder1(Integer val) {
+            this.val = val;
+        }
+    }
+    static class Holder2 {
+        Integer val = 0;
+    }
+
+    private static void change(Object obj) {
+        if (obj instanceof Holder1) {
+            obj = new Holder1(2333);
+//            ((Holder1)obj).val = 2333;
+        } else if (obj instanceof Holder2) {
+            ((Holder2) obj).val = 2333;
+        }
+    }
+
+    private static void testHolder() {
+        Holder1 h1 = new Holder1(1);
+        Holder2 h2 = new Holder2();
+
+        change(h1);
+        change(h2);
+        System.out.println(h1.val);
+        System.out.println(h2.val);
+    }
+
     public static void main(String[] args) {
         //Scanner in = new Scanner(System.in);
         //int a = in.nextInt();
         //System.out.println(a);
 //        testCombine();
-        testPow();
+//        testPow();
+        testHolder();
         System.out.println("Hello World!");
     }
-
 }
