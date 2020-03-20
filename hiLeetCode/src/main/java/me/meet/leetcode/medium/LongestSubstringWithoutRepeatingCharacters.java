@@ -1,9 +1,6 @@
 package me.meet.leetcode.medium;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public final class LongestSubstringWithoutRepeatingCharacters {
     private LongestSubstringWithoutRepeatingCharacters() {}
@@ -70,12 +67,37 @@ public final class LongestSubstringWithoutRepeatingCharacters {
         return res;
     }
 
-    public static void main(String[] args) {
+    /**
+     * 思路：
+     * 使用了 HashSet，核心算法和上面的很类似，把出现过的字符都放入 HashSet 中，遇到 HashSet 中没有的字符就加入 HashSet 中并更新结果 res，如果遇到重复的，则从左边开始删字符，直到删到重复的字符停止
+     */
+    static int lengthOfLongestSubstring1(String src) {
+        int res = 0, left = 0, i = 0, length = src.length();
+        Set<Character> set = new HashSet<>();
+        for (; i < length; ) {
+            if (!set.contains(src.charAt(i))) {
+                set.add(src.charAt(i++));
+                res = Math.max(res, set.size());
+            } else {
+                set.remove(src.charAt(left++));
+            }
+        }
+        return res;
+    }
+
+    private static void testLengthOfLongestSubstring1() {
         String s = "abcabcbb";
         int res = lengthOfLongestSubstring(s);
         System.out.println(res);
 
         res = lengthOfLongestSubstring2(s);
         System.out.println(res);
+
+        res = lengthOfLongestSubstring1(s);
+        System.out.println(res);
+    }
+
+    public static void main(String[] args) {
+        testLengthOfLongestSubstring1();
     }
 }

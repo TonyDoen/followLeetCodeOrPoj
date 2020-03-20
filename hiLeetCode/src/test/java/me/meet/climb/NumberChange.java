@@ -2,6 +2,49 @@ package me.meet.climb;
 
 public class NumberChange {
 
+    private static final String[] ChSectionPos = {"", "万", "亿", "万亿"}; //中文数字节权位
+    public static String number2Chinese(int num) {
+        if (0 == num) {
+            return "零";
+        }
+        int sectionPos = 0;
+        StringBuilder result = new StringBuilder(), oneSection;
+        for (; num > 0;) {
+            int section = num%10000;
+            oneSection = number2ChineseSection(section);
+            if (0 != section) { //当前小节不为0时，添加节权
+                oneSection.append(ChSectionPos[sectionPos]);
+            }
+            sectionPos++;
+            num = num / 10000; //去掉已经转换的末尾4位数
+            result.insert(0, oneSection);
+        }
+        if ('零' == result.charAt(0)) {
+            return result.substring(1);
+        }
+        return result.toString();
+    }
+    private static final String[] ChNumber = {"零", "一", "二", "三", "四", "五", "六", "七", "八", "九"};
+    private static final String[] ChPos = {"", "十", "百", "千"};
+    private static StringBuilder number2ChineseSection(int num) {
+        StringBuilder result = new StringBuilder();
+        boolean zeroFlag = true;
+        for (int i = 0; i < 4; i++) {
+            int end = num % 10;
+            if (0 == end){
+                if (!zeroFlag) {
+                    zeroFlag = true;
+                    result.insert(0, ChNumber[0]);
+                }
+            } else {
+                zeroFlag = false;
+                result.insert(0, ChPos[i]).insert(0, ChNumber[end]);
+            }
+            num = num / 10;
+        }
+        return result;
+    }
+
 
     public static String numberToChinese(int num) {
 
@@ -53,7 +96,14 @@ public class NumberChange {
     }
 
     public static void main(String[] args) {
-        String res = numberToChinese(1999999999);
-        System.out.println(res);
+//        int num = 1999999999;
+//        int num = 1999999999;
+//        int num = 1999000999;
+        int num = Integer.MAX_VALUE;
+        String res1 = numberToChinese(num);
+        System.out.println(res1);
+
+        String res2 = number2Chinese(num);
+        System.out.println(res2);
     }
 }

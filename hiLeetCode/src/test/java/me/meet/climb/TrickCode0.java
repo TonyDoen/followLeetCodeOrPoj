@@ -2,7 +2,7 @@ package me.meet.climb;
 
 import java.util.*;
 
-public class Test1 {
+public class TrickCode0 {
     /**
      * Chess Placing
      * 题意：给了一维的一个棋盘，共有n（n必为偶数）个格子。棋盘上是黑白相间的。现在棋盘上有n/2个棋子，让你全部移动到黑色格子或者白色格子，要求步数最少，并输出步数。
@@ -66,6 +66,64 @@ public class Test1 {
             }
         }
         return c % b == 0;
+    }
+
+    /**
+     * 给出循环左移 n 位的单调递增数组，问当前数组左移 n 具体是多少
+     * eg:
+     * 4 5 6 7 1 2 3 => n = 3
+     *
+     * 分析:
+     * 1 2 3 4 5 6 7 => 左移 3 位 => 4 5 6 7 1 2 3
+     *
+     *
+     * 情况1: 2 3 4 5 6 7 1 => 左移 1 位
+     *    left     mid    right          => left > right; mid > right; mid > left;
+     *
+     *
+     * 情况2: 3 4 5 6 7 1 2 => 左移 2 位
+     *    left     mid    right          => left > right; mid > right; mid > left;
+     *
+     *
+     * 情况3: 7 1 2 3 4 5 6 => 左移 6 位
+     *    left     mid    right          => left > right; mid < right; mid < left;
+     *
+     *
+     * 情况4: 1 2 3 4 5 6 7 => 左移 0 位
+     *    left     mid    right          => left < right; (mid < right; mid >left;)
+     */
+    public static int moveLeftStep(int[] arr) { // error
+        if (null == arr || arr.length < 1) {
+            return 0;
+        }
+
+        int left = 0, right = arr.length - 1;
+        for (; left < right; ) {
+            int mid = (left + right) / 2;
+            if ((arr[mid] < arr[mid - 1] && arr[mid] < arr[mid + 1])) {
+                return arr.length - mid;
+            }
+            if (left + 1 == right && arr[left] > arr[right]) {
+                return 1; // 情况1
+            }
+
+            if (arr[left] < arr[right]) {
+                return 0; // 情况4
+            } else {
+                if (arr[mid] > arr[left] && arr[mid] > arr[right]) {
+                    left = mid;  // 情况2
+                } else if (arr[mid] < arr[left] && arr[mid] < arr[right]) {
+                    right = mid; // 情况3
+                }
+            }
+        }
+        return 0;
+    }
+
+    private static void testMoveLeftStep() {
+        int[] arr = new int[]{18, 1, 2, 3, 4, 5, 6, 7, 8, 13};
+        int res = moveLeftStep(arr);
+        System.out.println(res);
     }
 
     /**
@@ -217,6 +275,7 @@ public class Test1 {
 
 //        bfs(3, 2, 1);
 
-        chessPlacing(4);
+//        chessPlacing(4);
+        testMoveLeftStep();
     }
 }
