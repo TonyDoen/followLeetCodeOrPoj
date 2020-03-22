@@ -12,22 +12,23 @@ public class POJ3414Pots {
         Node(int a, int b, int step, int pre, int cmd, int pos) {
             this.a = a;      // 两个容积分别为 a 和 b 的pot
             this.b = b;
-            this.step = step;// step 就是id
-            this.pre = pre;  // pre代表前一个
-            this.cmd = cmd;  // cmd代表他的行动 1:FILL(1); 2:FILL(2); 3:DROP(1); 4:DROP(2); 5:POUR(2,1); 6:POUR(1,2)
-            this.pos = pos;  // pos代表最短几步
+            this.step = step;// step 代表前一个他的行动ID 1:FILL(1); 2:FILL(2); 3:DROP(1); 4:DROP(2); 5:POUR(2,1); 6:POUR(1,2)
+            this.pre = pre;  // pre  代表前一个
+            this.cmd = cmd;  // cmd  代表他的行动 1:FILL(1); 2:FILL(2); 3:DROP(1); 4:DROP(2); 5:POUR(2,1); 6:POUR(1,2)
+            this.pos = pos;  // pos  代表最短几步
         }
     }
 
-
     /**
+     * url: https://blog.csdn.net/qq_34374664/article/details/53170539
+     *
      * POJ 3414 Pots
      *
      * Description
      * You are given two pots, having the volume of A and B liters respectively. The following operations can be performed:
      * 1. FILL(i)        fill the pot i (1 ≤ i ≤ 2) from the tap;
-     * 2. DROP(i)      empty the pot i to the drain;
-     * 3. POUR(i,j)    pour from pot i to pot j; after this operation either the pot j is full (and there may be some water left in the pot i), or the pot i is empty (and all its contents have been moved to the pot j).
+     * 2. DROP(i)        empty the pot i to the drain;
+     * 3. POUR(i,j)      pour from pot i to pot j; after this operation either the pot j is full (and there may be some water left in the pot i), or the pot i is empty (and all its contents have been moved to the pot j).
      * Write a program to find the shortest possible sequence of these operations that will yield exactly C liters of water in one of the pots.
      *
      * Input
@@ -54,15 +55,15 @@ public class POJ3414Pots {
      *
      */
     /**
-     * 题意：给出两个容积分别为 a 和 b 的pot，按照以下三种操作方式，求出能否在一定步数后，使者两个pot的其中一个的水量为c。
-     * 1.FILL(i)：   将 i pot倒满水。
-     * 2.DROP(i)：   将 i pot倒空水。
-     * 3.POUR(i,j)： 将 i pot的水倒到 j pot上，直至要么 i pot为空，要么 j pot为满。
+     * 题意:给出两个容积分别为 a 和 b 的pot,按照以下三种操作方式,求出能否在一定步数后,使者两个pot的其中一个的水量为c。
+     * 1.FILL(i):   将 i pot倒满水。
+     * 2.DROP(i):   将 i pot倒空水。
+     * 3.POUR(i,j): 将 i pot的水倒到 j pot上,直至要么 i pot为空,要么 j pot为满。
      *
-     * 思路：
+     * 思路:
      * 6入口的bfs
-     * 把两个两个桶的某个同一时间的状态看做一个整体，视为初态
-     * 可对初态进行六种操作，即FILL(1),FILL(2),DROP(1),DROP(2),POUR(1,2),POUR(2,1)
+     * 把两个两个桶的某个同一时间的状态看做一个整体,视为初态
+     * 可对初态进行六种操作,即FILL(1),FILL(2),DROP(1),DROP(2),POUR(1,2),POUR(2,1)
      * 这6种操作在我的程序中分别用一个整数进行记录;
      * 1z0: 清空z瓶子
      * 2z0: 装满z瓶子
@@ -70,6 +71,25 @@ public class POJ3414Pots {
      *
      * 这样在输出操作时就能根据数字的特点 进行选择性输出 了
      *
+     * eg:
+     * 设1瓶的容量为v1,残余水量为k1,
+     * 2瓶的容量为v2,残余水量为 k2
+     * 那么
+     * fill(1) 相当于 k1=v1
+     * fill(2) 相当于 k2=v2
+     * drop(1) 相当于 k1=0
+     * drop(2) 相当于 k2=0
+     * pour(1,2),若  k1+k2<=v2,     则 k2=k1+k2, k1=0  （有先后顺序）
+     *           否则 k1=k1+k2-v2,     k2=v2            （有先后顺序）
+     * pour(1,1) 同理
+     *
+     *
+     * 难点
+     * 1. 输出得到容量C的过程。
+     * 解决方法：对于每一步的操作，我们都得对它设置一个pos指针，使它指向前一步操作在queue[]队列的下标，即对下标进行回溯，再顺序输出每一步操作
+     *
+     * 2. 状态记录
+     * 怎样记录两个瓶子在同一时间点的状态，又能使得搜索标记时为O(1)的复杂度
      *
      */
     static void bfs(int a, int b, int c) {
@@ -170,7 +190,6 @@ public class POJ3414Pots {
 
     private static void testBFS() {
         bfs(3, 5, 4);
-
         bfs(3, 7, 1);
     }
 
