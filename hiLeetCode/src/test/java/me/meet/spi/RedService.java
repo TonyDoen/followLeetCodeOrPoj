@@ -1,4 +1,4 @@
-package org.zhd.test.spi;
+package me.meet.spi;
 
 public class RedService implements DubboService {
 

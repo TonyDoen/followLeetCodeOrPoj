@@ -1,8 +1,8 @@
-package org.zhd.test.binaryTree;
+package me.meet.data;
 
 import java.util.Arrays;
 
-public class MaxDistanceInBinaryTree {
+public class OfferBinaryTreeMaxDistance {
     static class Node {
         Object val;
         Node left;
